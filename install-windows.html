@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FLOATING — Windows install guide (closed beta)</title>
+<meta name="description" content="How to install the FLOATING closed beta on Windows: extracting the VST3, where to copy it, why there is no SmartScreen prompt, and the one known limitation on this build.">
+<meta name="theme-color" content="#050506">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+
+<a class="skip" href="#doc">Skip to content</a>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="wordmark" href="index.html">FLOATING<span class="dot" aria-hidden="true"></span></a>
+    <nav class="topnav" aria-label="Sections">
+      <a href="index.html#beta">Downloads</a>
+      <a class="opt" href="install-macos.html">macOS guide</a>
+      <a class="opt" href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="doc" id="doc">
+  <div class="wrap">
+
+    <a class="crumb" href="index.html">← Back to FLOATING</a>
+
+    <div class="doc-head">
+      <p class="eyebrow">Closed beta · Windows</p>
+      <h1>Install guide — Windows</h1>
+      <p class="lede text">FLOATING v0.1.0 beta 1, VST3 format, Windows x64.</p>
+      <p class="small muted text">This is a beta build for closed testing — not signed, not yet through a full installer. That’s expected, not a mistake on your end.</p>
+    </div>
+
+    <h2>Install</h2>
+    <ol class="steps">
+      <li>
+        <p>Extract <code>FLOATING-0.1.0-beta.1-Windows-x64-VST3.zip</code> (right-click → Extract All, or your usual tool).</p>
+      </li>
+      <li>
+        <p>Copy the <code>FLOATING.vst3</code> folder to:</p>
+        <p class="path">C:\Program Files\Common Files\VST3\</p>
+        <p>If that folder doesn’t exist, create it first. Writing here needs administrator permission (Windows will prompt via UAC) — that’s normal for this location, not specific to FLOATING.</p>
+        <p>Prefer not to deal with admin rights? You can instead use the per-user path, no elevation needed:</p>
+        <p class="path">%LOCALAPPDATA%\Programs\Common\VST3\</p>
+      </li>
+    </ol>
+
+    <h2>About the security prompt you <em>won’t</em> see</h2>
+    <p>Unlike some other platforms, Windows doesn’t require VST3 plugins to be signed, and SmartScreen only gates programs you <em>launch</em> directly — a plugin loaded by your DAW isn’t launched the same way, so there’s no “unblock” step to hunt for here. The only prompt you may see is the standard UAC permission request from writing into Program Files, which is about the folder, not about FLOATING itself.</p>
+
+    <h2>Confirm it’s installed</h2>
+    <p>Open your DAW, force a plugin rescan if it doesn’t appear automatically, and look for FLOATING under VST3 instruments/effects (check your DAW’s own scan log if it doesn’t show up).</p>
+
+    <h2>Known issue on this beta</h2>
+    <div class="warning">
+      <h4>Capture recovery gesture — macOS only</h4>
+      <p>The Capture recovery gesture (hold down a modifier and click Capture to restore the previous Memory) does not yet work on Windows — this is a known limitation, not something to report as a new bug. Everything else should behave the same as on macOS.</p>
+    </div>
+
+    <h2>Uninstall</h2>
+    <p>Delete the <code>FLOATING.vst3</code> folder from wherever you installed it. There’s no separate uninstaller for this beta.</p>
+
+    <h2>Feedback</h2>
+    <p>Bug reports, confusion, and “this should work differently” are all equally welcome. Reach me on Instagram or Telegram at <a href="https://instagram.com/floamusic" rel="noopener">@floamusic</a> / <a href="https://t.me/floamusic" rel="noopener">@floamusic</a>.</p>
+    <p>The most useful report says what you did, what you expected, and what happened instead — plus your DAW and its version, and a screen recording if it’s something you can see or hear.</p>
+
+    <p style="margin-top:44px">
+      <a class="btn wide" href="https://github.com/floamusic/floating-site/releases/download/v0.1.0-beta.1/FLOATING-0.1.0-beta.1-Windows-x64-VST3.zip">Download for Windows</a>
+    </p>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="mono">FLOATING · by Fløa · v0.1.0-beta.1</span>
+    <span class="mono"><a href="index.html">Home</a> · <a href="install-macos.html">macOS install</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

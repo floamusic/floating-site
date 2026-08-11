@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FLOATING — macOS install guide (closed beta)</title>
+<meta name="description" content="How to install the FLOATING closed beta on macOS: running the unsigned installer, getting past Gatekeeper, where the AU and VST3 go, and how to confirm your DAW found them.">
+<meta name="theme-color" content="#050506">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+
+<a class="skip" href="#doc">Skip to content</a>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="wordmark" href="index.html">FLOATING<span class="dot" aria-hidden="true"></span></a>
+    <nav class="topnav" aria-label="Sections">
+      <a href="index.html#beta">Downloads</a>
+      <a class="opt" href="install-windows.html">Windows guide</a>
+      <a class="opt" href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="doc" id="doc">
+  <div class="wrap">
+
+    <a class="crumb" href="index.html">← Back to FLOATING</a>
+
+    <div class="doc-head">
+      <p class="eyebrow">Closed beta · macOS</p>
+      <h1>Install guide — macOS</h1>
+      <p class="lede text">Thanks for testing FLOATING. This takes about two minutes.</p>
+      <p class="small muted text">This guide covers the closed beta only. It will be replaced by a proper installation guide when FLOATING ships publicly.</p>
+    </div>
+
+    <h2>What you need</h2>
+    <ul>
+      <li>macOS 11 Big Sur or later</li>
+      <li><strong>An Apple Silicon Mac (M1 or later).</strong> This beta round is Apple Silicon only. Intel support is coming, but it isn’t ready to be tested yet — the installer will decline to run on an Intel Mac rather than install something that won’t load.</li>
+      <li>Ableton Live, Logic, or any other AU / VST3 host</li>
+    </ul>
+    <p>To check which Mac you have: <strong>Apple menu → About This Mac</strong>. Anything listing an <em>Apple M1/M2/M3/M4</em> chip is Apple Silicon; anything listing an <em>Intel</em> processor isn’t covered by this round.</p>
+
+    <h2>1. Run the installer</h2>
+    <p>Double-click <code>FLOATING-0.1.0-beta.1-macOS-arm64.pkg</code>.</p>
+    <p>macOS will refuse to open it the first time. <strong>This is expected</strong> — see the next section for the two clicks that get past it.</p>
+    <p>Once the installer opens, click through it. You’ll be asked for your Mac password, because the plug-ins install into the shared system plug-in folders that every DAW already scans.</p>
+
+    <h2>2. Getting past the macOS warning</h2>
+    <p>You’ll see something like <em>“FLOATING…pkg cannot be opened because it is from an unidentified developer”</em> or <em>“Apple could not verify it is free of malware”</em>.</p>
+    <p><strong>Why:</strong> Apple’s Gatekeeper only recognises installers that have been signed with a paid Apple Developer ID and submitted to Apple for notarization. FLOATING doesn’t have that yet — the developer account gets set up before the public release, not during a closed beta. macOS isn’t reporting that anything is wrong with the file; it’s reporting that it doesn’t recognise who published it. Every unsigned beta from every small developer behaves this way.</p>
+    <p>Two ways through it — try the first, fall back to the second:</p>
+
+    <h3>Option A — Control-click → Open</h3>
+    <ol class="steps">
+      <li><p>Control-click (or right-click) the <code>.pkg</code> file in Finder</p></li>
+      <li><p>Choose <strong>Open</strong></p></li>
+      <li><p>In the dialog that appears, click <strong>Open</strong> again</p></li>
+    </ol>
+
+    <h3>Option B — Privacy &amp; Security (needed on macOS 15 Sequoia and later)</h3>
+    <ol class="steps">
+      <li><p>Double-click the <code>.pkg</code> normally and let macOS block it. Click <strong>Done</strong>.</p></li>
+      <li><p>Open <strong>System Settings → Privacy &amp; Security</strong></p></li>
+      <li><p>Scroll down to the Security section. There’ll be a line saying FLOATING was blocked, with an <strong>Open Anyway</strong> button. Click it.</p></li>
+      <li><p>Authenticate with Touch ID or your password, then click <strong>Open</strong> in the confirmation dialog.</p></li>
+    </ol>
+    <p>The warning appears once, for the installer file itself. The installed plug-ins are not affected by it and load normally afterwards.</p>
+
+    <h2>3. Where it goes</h2>
+    <p>The installer puts exactly two things on your Mac:</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th scope="col">Format</th><th scope="col">Location</th></tr></thead>
+        <tbody>
+          <tr><td>Audio Unit</td><td><code>/Library/Audio/Plug-Ins/Components/FLOATING.component</code></td></tr>
+          <tr><td>VST3</td><td><code>/Library/Audio/Plug-Ins/VST3/FLOATING.vst3</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Nothing else is installed — no background processes, no login items, no licensing service.</p>
+
+    <h2>4. Confirm it worked</h2>
+
+    <h3>In Ableton Live</h3>
+    <ol class="steps">
+      <li><p>Restart Live if it was already open — it only scans for new plug-ins at launch.</p></li>
+      <li><p>In the browser, go to <strong>Plug-Ins</strong>. FLOATING appears under <strong>Floaudio</strong> in both the <strong>Audio Units</strong> and <strong>VST3</strong> lists.</p></li>
+      <li><p>If it isn’t there, open <strong>Settings → Plug-Ins</strong> and click <strong>Rescan Plug-Ins</strong>. Make sure <em>Use Audio Units</em> and <em>Use VST3 Plug-In System Folders</em> are both switched on.</p></li>
+    </ol>
+
+    <h3>In Logic Pro</h3>
+    <p>FLOATING appears as an audio effect under <strong>Floaudio</strong>. Logic validates new Audio Units at launch, so give it a few seconds on first start.</p>
+
+    <h3>From the Terminal (optional, if a DAW isn’t finding it)</h3>
+    <pre class="path"><code>ls -d /Library/Audio/Plug-Ins/Components/FLOATING.component /Library/Audio/Plug-Ins/VST3/FLOATING.vst3</code></pre>
+    <p>Both paths should print. To check that macOS itself considers the Audio Unit valid:</p>
+    <pre class="path"><code>auval -v aufx Flt1 Floa</code></pre>
+    <p>The last line should read <code>AU VALIDATION SUCCEEDED</code>.</p>
+
+    <h2>5. If FLOATING doesn’t show up</h2>
+    <ul>
+      <li><strong>Restart the DAW.</strong> Most hosts only scan at launch.</li>
+      <li><strong>Check for an older copy.</strong> If you were sent a hand-built copy of FLOATING earlier in the beta, it may still be in your personal plug-in folder and your DAW may be loading that one instead. Look in <code>~/Library/Audio/Plug-Ins/Components</code> and <code>~/Library/Audio/Plug-Ins/VST3</code> and delete any <code>FLOATING.component</code> / <code>FLOATING.vst3</code> you find there.</li>
+      <li><strong>Live’s VST3 folder setting.</strong> In <em>Settings → Plug-Ins</em>, <em>Use VST3 Plug-In System Folders</em> must be on. A custom VST3 folder setting will not find the system folder.</li>
+    </ul>
+
+    <h2>6. Uninstalling</h2>
+    <p>There’s no uninstaller — deleting the two files is the whole job:</p>
+    <ol class="steps">
+      <li><p>In Finder, press <strong>Cmd-Shift-G</strong> and go to <code>/Library/Audio/Plug-Ins/Components</code></p></li>
+      <li><p>Drag <code>FLOATING.component</code> to the Trash</p></li>
+      <li><p>Go to <code>/Library/Audio/Plug-Ins/VST3</code> and drag <code>FLOATING.vst3</code> to the Trash</p></li>
+      <li><p>Restart your DAW</p></li>
+    </ol>
+    <p>You’ll be asked for your password, since these are shared system folders.</p>
+    <p>Terminal equivalent:</p>
+    <pre class="path"><code>sudo rm -rf "/Library/Audio/Plug-Ins/Components/FLOATING.component" "/Library/Audio/Plug-Ins/VST3/FLOATING.vst3"</code></pre>
+    <p>Removing FLOATING will leave existing projects that used it with a missing plug-in, but won’t damage them — the settings come back if you reinstall.</p>
+
+    <h2>7. Installing a newer beta</h2>
+    <p>Just run the newer <code>.pkg</code>. It replaces both plug-ins in place. You don’t need to uninstall first, and your saved projects and presets are unaffected.</p>
+
+    <h2>Reporting problems</h2>
+    <p>When something goes wrong, the most useful things to send are:</p>
+    <ul>
+      <li>Your Mac (which Apple chip) and macOS version</li>
+      <li>Your DAW and its version</li>
+      <li>Which format — AU or VST3</li>
+      <li>What you did, what you expected, what happened</li>
+      <li>A screen recording if it’s something you can see or hear</li>
+    </ul>
+    <p>Thanks — the point of this round is to find exactly this kind of thing.</p>
+
+    <div class="note">
+      <p>Reach me on Instagram or Telegram at <a href="https://instagram.com/floamusic" rel="noopener">@floamusic</a> / <a href="https://t.me/floamusic" rel="noopener">@floamusic</a>. Full details on the <a href="index.html#contact">contact section</a>.</p>
+    </div>
+
+    <p style="margin-top:44px">
+      <a class="btn wide" href="https://github.com/floamusic/floating-site/releases/download/v0.1.0-beta.1/FLOATING-0.1.0-beta.1-macOS-arm64.pkg">Download for macOS</a>
+    </p>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="mono">FLOATING · by Fløa · v0.1.0-beta.1</span>
+    <span class="mono"><a href="index.html">Home</a> · <a href="install-windows.html">Windows install</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
