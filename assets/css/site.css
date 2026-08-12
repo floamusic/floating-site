@@ -491,16 +491,23 @@ figcaption {
 .btn.ghost:hover { border-color: var(--accent); color: var(--accent); filter: none; }
 .btn.wide { width: auto; min-width: 240px; }
 
-.checksum {
-  margin-top: 18px;
-  padding-top: 16px;
-  border-top: 1px solid var(--line-soft);
-  color: var(--ink-muted);
-  font: 10.5px/1.7 var(--mono);
-  letter-spacing: 0.02em;
-  overflow-wrap: anywhere;
+/* The two secondary links share one row so a card reads as one primary action
+   plus a pair of references, rather than three stacked full-width buttons. */
+.dl-links { display: flex; gap: 10px; margin-top: 10px; }
+.dl-links .btn {
+  flex: 1 1 0;
+  min-width: 0;
+  margin-top: 0;
+  padding: 13px 8px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
 }
-.checksum b { display: block; margin-bottom: 4px; color: var(--accent); letter-spacing: 0.14em; font-weight: 400; }
+/* The pair still fits side by side at 375px (≈140px each); only genuinely
+   narrow phones need it stacked, and stacking earlier would leave three
+   full-width buttons where a primary-plus-pair reads better. */
+@media (max-width: 359px) {
+  .dl-links { flex-direction: column; }
+}
 
 /* ---------- notes ---------- */
 
