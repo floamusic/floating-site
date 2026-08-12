@@ -458,6 +458,7 @@ figcaption {
 }
 .link-row .v { font-family: var(--mono); font-size: 15px; }
 .link-row .v.pending { color: var(--ink-muted); border-bottom: 1px dashed var(--ink-low); padding-bottom: 2px; }
+.signoff { margin-top: 1.8em; color: var(--ink-muted); font-family: var(--mono); letter-spacing: 0.06em; }
 .link-row .hint { color: var(--ink-muted); font-size: 13px; }
 
 /* ---------- footer ---------- */
