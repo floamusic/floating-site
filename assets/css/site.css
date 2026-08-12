@@ -281,6 +281,91 @@ p:last-child { margin-bottom: 0; }
   background: var(--panel-deep);
   box-shadow: 0 30px 90px rgba(0, 0, 0, 0.7);
 }
+
+/* ---------- hero view switch (Interface / video) ---------- */
+
+.switch {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.switch-btn {
+  /* 44px minimum so this is a real touch target on a phone, which is where
+     most of this traffic arrives from. */
+  min-height: 44px;
+  padding: 11px 18px;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  color: var(--ink-muted);
+  font: 11.5px/1 var(--mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+.switch-btn:hover { color: var(--ink); border-color: var(--ink-low); }
+.switch-btn.is-on {
+  color: var(--accent);
+  border-color: var(--accent-deep);
+  background: var(--accent-soft);
+}
+
+.panel[hidden] { display: none; }
+
+.video-wrap { position: relative; }
+/* The still is 16:10 and the footage 16:9, so the poster is covered rather
+   than contained — otherwise switching tabs reveals pillarbox bars beside the
+   frame. Once playing, the video is exactly 16:9 and cover is a no-op. */
+.video-wrap video {
+  display: block;
+  width: 100%;
+  /* height:auto is load-bearing — the height="1080" attribute becomes a
+     presentational CSS height, and aspect-ratio only computes a height when
+     height is auto. Without this the box renders 1024x1080 and the poster is
+     cropped to a fraction of the frame. */
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: var(--panel-deep);
+}
+
+.play-badge {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 56px;
+  padding: 14px 24px 14px 20px;
+  background: rgba(5, 5, 6, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid var(--accent);
+  border-radius: 3px;
+  color: var(--ink);
+  font: 12px/1 var(--mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.play-badge:hover { background: rgba(255, 90, 44, 0.22); }
+.play-badge[hidden] { display: none; }
+.play-badge .tri {
+  width: 0;
+  height: 0;
+  border-left: 15px solid var(--accent);
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+}
+@media (max-width: 560px) {
+  .play-badge .lbl { display: none; }
+  .play-badge { padding: 18px 20px 18px 24px; border-radius: 50%; min-width: 64px; min-height: 64px; justify-content: center; }
+}
 figure { margin: 0; }
 figcaption {
   margin-top: 12px;

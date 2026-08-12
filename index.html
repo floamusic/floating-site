@@ -43,22 +43,52 @@
         <span class="tag">AU · VST3</span>
         <span class="tag">macOS · Windows</span>
       </div>
-      <!-- HERO MEDIA — swap this <figure> for the 43s promo video once the
-           text-overlay revision lands. Keep the same wrapper and .shot border
-           so the surrounding layout is unaffected:
-             <video class="shot" autoplay muted loop playsinline
-                    poster="assets/img/hero-memory.jpg">
-               <source src="assets/video/floating-promo.mp4" type="video/mp4">
-             </video>                                                        -->
-      <figure>
-        <img class="shot"
-             src="assets/img/hero-memory.jpg"
-             srcset="assets/img/hero-memory.jpg 1920w, assets/img/hero-memory@2x.jpg 2560w"
-             sizes="(max-width: 1120px) 100vw, 1120px"
-             width="1920" height="1200"
-             alt="The FLOATING interface: a held four-second Memory in the Memory Horizon with a remembered Atmosphere movement drawn across it, Choir mode selected, and the Rate, Window, Shape and Mix controls below.">
-        <figcaption>Held Memory · Choir · a remembered Atmosphere movement</figcaption>
-      </figure>
+      <!-- HERO MEDIA — two views of the same thing. The still is the default so
+           the page paints exactly as it did before the video existed; the video
+           carries real audio as part of the demonstration, so it never
+           autoplays and is preload="none" (zero bytes until someone asks for
+           it). The still doubles as the video's poster, so switching tabs shows
+           the same frame rather than a black box. -->
+      <div class="hero-media">
+        <div class="switch" role="tablist" aria-label="Choose how to view FLOATING">
+          <button type="button" class="switch-btn is-on" role="tab"
+                  id="tab-still" aria-controls="panel-still" aria-selected="true">Interface</button>
+          <button type="button" class="switch-btn" role="tab"
+                  id="tab-video" aria-controls="panel-video" aria-selected="false" tabindex="-1">Watch it in action</button>
+        </div>
+
+        <div class="panel" id="panel-still" role="tabpanel" aria-labelledby="tab-still" tabindex="0">
+          <figure>
+            <img class="shot"
+                 src="assets/img/hero-memory.jpg"
+                 srcset="assets/img/hero-memory.jpg 1920w, assets/img/hero-memory@2x.jpg 2560w"
+                 sizes="(max-width: 1120px) 100vw, 1120px"
+                 width="1920" height="1200"
+                 alt="The FLOATING interface: a held four-second Memory in the Memory Horizon with a remembered Atmosphere movement drawn across it, Choir mode selected, and the Rate, Window, Shape and Mix controls below.">
+            <figcaption>Held Memory · Choir · a remembered Atmosphere movement</figcaption>
+          </figure>
+        </div>
+
+        <div class="panel" id="panel-video" role="tabpanel" aria-labelledby="tab-video" tabindex="0" hidden>
+          <figure>
+            <div class="video-wrap">
+              <video class="shot" id="promo" controls playsinline preload="none"
+                     width="1920" height="1080"
+                     poster="assets/img/hero-memory.jpg">
+                <source src="assets/video/floating-promo-v3-captions.mp4" type="video/mp4">
+                <p>Your browser can’t play this video.
+                   <a href="assets/video/floating-promo-v3-captions.mp4">Download it instead</a>.</p>
+              </video>
+              <button type="button" class="play-badge" id="play-badge"
+                      aria-label="Play the FLOATING demo video, 43 seconds, with sound">
+                <span class="tri" aria-hidden="true"></span>
+                <span class="lbl">Play · 43s · sound on</span>
+              </button>
+            </div>
+            <figcaption>FLOATING in a session · 43 seconds · plays with sound</figcaption>
+          </figure>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -197,6 +227,51 @@
   </section>
 
 </main>
+
+<script>
+/* Hero view switch. Progressive enhancement: with JS off, the still panel is
+   visible and the video panel stays hidden — the page is exactly what it was
+   before the video existed. */
+(function () {
+  var tabs   = [document.getElementById('tab-still'), document.getElementById('tab-video')];
+  var panels = [document.getElementById('panel-still'), document.getElementById('panel-video')];
+  var video  = document.getElementById('promo');
+  var badge  = document.getElementById('play-badge');
+  if (!tabs[0] || !tabs[1] || !video) return;
+
+  function select(i, focus) {
+    tabs.forEach(function (t, n) {
+      var on = n === i;
+      t.classList.toggle('is-on', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      panels[n].hidden = !on;
+    });
+    // Leaving the video must stop the audio — a paused-but-hidden player that
+    // keeps talking is the whole reason this thing doesn't autoplay.
+    if (i !== 1 && !video.paused) video.pause();
+    if (focus) tabs[i].focus();
+  }
+
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { select(i); });
+    t.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); select((i + 1) % 2, true); }
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); select((i + 1) % 2, true); }
+      else if (e.key === 'Home') { e.preventDefault(); select(0, true); }
+      else if (e.key === 'End')  { e.preventDefault(); select(1, true); }
+    });
+  });
+
+  if (badge) {
+    badge.addEventListener('click', function () { video.play(); });
+  }
+  // The badge is only an affordance over the poster; once the native controls
+  // are the real interface, it gets out of the way.
+  video.addEventListener('play',  function () { if (badge) badge.hidden = true; });
+  video.addEventListener('ended', function () { if (badge) badge.hidden = false; });
+})();
+</script>
 
 <footer>
   <div class="wrap">
