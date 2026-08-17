@@ -44,7 +44,7 @@
     <p>To check which Mac you have: <strong>Apple menu → About This Mac</strong>. Anything listing an <em>Apple M1/M2/M3/M4</em> chip is Apple Silicon; anything listing an <em>Intel</em> processor isn’t covered by this round.</p>
 
     <h2>1. Run the installer</h2>
-    <p>Double-click <code>FLOATING-0.1.0-beta.1-macOS-arm64.pkg</code>.</p>
+    <p>Double-click <code>FLOATING-macOS-latest-beta.pkg</code>.</p>
     <p>macOS will refuse to open it the first time. <strong>This is expected</strong> — see the next section for the two clicks that get past it.</p>
     <p>Once the installer opens, click through it. You’ll be asked for your Mac password, because the plug-ins install into the shared system plug-in folders that every DAW already scans.</p>
 
@@ -139,7 +139,7 @@
     </div>
 
     <p style="margin-top:44px">
-      <a class="btn wide" href="https://github.com/floamusic/floating-site/releases/download/v0.1.0-beta.1/FLOATING-0.1.0-beta.1-macOS-arm64.pkg">Download for macOS</a>
+      <a class="btn wide" href="https://github.com/floamusic/floating-site/releases/latest/download/FLOATING-macOS-latest-beta.pkg">Download for macOS</a>
     </p>
 
   </div>
@@ -147,10 +147,25 @@
 
 <footer>
   <div class="wrap">
-    <span class="mono">FLOATING · by Fløa · v0.1.0-beta.1</span>
+    <span class="mono">FLOATING · by Fløa · <span data-latest-version>v0.2.0</span></span>
     <span class="mono"><a href="index.html">Home</a> · <a href="install-windows.html">Windows install</a></span>
   </div>
 </footer>
+
+<!-- The version above is correct as published. This only keeps it current if a
+     newer release goes up before the page is next edited; if the request fails,
+     is rate-limited, or JS is off, the published value stands. -->
+<script>
+  fetch('https://api.github.com/repos/floamusic/floating-site/releases/latest',
+        { headers: { Accept: 'application/vnd.github+json' } })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (d) {
+      if (!d || !d.tag_name) return;
+      document.querySelectorAll('[data-latest-version]')
+              .forEach(function (el) { el.textContent = d.tag_name; });
+    })
+    .catch(function () { /* published value stands */ });
+</script>
 
 </body>
 </html>

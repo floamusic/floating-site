@@ -39,7 +39,7 @@
       <h1>A recent moment,<br>remembered differently.</h1>
       <p class="sub">Capture a recent moment, shape how it is remembered, place it into atmosphere. Audio Unit and VST3, for macOS and Windows.</p>
       <div class="hero-meta">
-        <span class="tag hot">Closed beta · v0.1.0-beta.1</span>
+        <span class="tag hot">Closed beta · <span data-latest-version>v0.2.0</span></span>
         <span class="tag">AU · VST3</span>
         <span class="tag">macOS · Windows</span>
       </div>
@@ -150,7 +150,7 @@
     <div class="wrap">
       <p class="eyebrow"><span class="num">03</span>Get the beta</p>
       <div class="text">
-        <h2>Download FLOATING v0.1.0-beta.1</h2>
+        <h2>Download FLOATING <span data-latest-version>v0.2.0</span></h2>
         <p>Free, no account, no key. Download it and it works. The installer and the plug-in are unsigned, so your system will ask once whether you meant to open them — the install guides walk through exactly that.</p>
       </div>
 
@@ -279,10 +279,25 @@
 
 <footer>
   <div class="wrap">
-    <span class="mono">FLOATING · by Fløa · v0.1.0-beta.1</span>
+    <span class="mono">FLOATING · by Fløa · <span data-latest-version>v0.2.0</span></span>
     <span class="mono"><a href="install-macos.html">macOS install</a> · <a href="install-windows.html">Windows install</a></span>
   </div>
 </footer>
+
+<!-- The version above is correct as published. This only keeps it current if a
+     newer release goes up before the page is next edited; if the request fails,
+     is rate-limited, or JS is off, the published value stands. -->
+<script>
+  fetch('https://api.github.com/repos/floamusic/floating-site/releases/latest',
+        { headers: { Accept: 'application/vnd.github+json' } })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (d) {
+      if (!d || !d.tag_name) return;
+      document.querySelectorAll('[data-latest-version]')
+              .forEach(function (el) { el.textContent = d.tag_name; });
+    })
+    .catch(function () { /* published value stands */ });
+</script>
 
 </body>
 </html>
