@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FLOATING — macOS install guide (closed beta)</title>
-<meta name="description" content="How to install the FLOATING closed beta on macOS: running the unsigned installer, getting past Gatekeeper, where the AU and VST3 go, and how to confirm your DAW found them.">
+<title>FLOATING — macOS install guide (beta)</title>
+<meta name="description" content="How to install the FLOATING beta on macOS: running the unsigned installer, getting past Gatekeeper, where the AU and VST3 go, and how to confirm your DAW found them.">
 <meta name="theme-color" content="#050506">
 <link rel="stylesheet" href="assets/css/site.css">
 </head>
@@ -29,10 +29,10 @@
     <a class="crumb" href="index.html">← Back to FLOATING</a>
 
     <div class="doc-head">
-      <p class="eyebrow">Closed beta · macOS</p>
+      <p class="eyebrow">Beta · macOS</p>
       <h1>Install guide — macOS</h1>
       <p class="lede text">Thanks for testing FLOATING. This takes about two minutes.</p>
-      <p class="small muted text">This guide covers the closed beta only. It will be replaced by a proper installation guide when FLOATING ships publicly.</p>
+      <p class="small muted text">This guide covers the beta only. It will be replaced by a proper installation guide when FLOATING ships publicly.</p>
     </div>
 
     <h2>What you need</h2>
@@ -50,7 +50,7 @@
 
     <h2>2. Getting past the macOS warning</h2>
     <p>You’ll see something like <em>“FLOATING…pkg cannot be opened because it is from an unidentified developer”</em> or <em>“Apple could not verify it is free of malware”</em>.</p>
-    <p><strong>Why:</strong> Apple’s Gatekeeper only recognises installers that have been signed with a paid Apple Developer ID and submitted to Apple for notarization. FLOATING doesn’t have that yet — the developer account gets set up before the public release, not during a closed beta. macOS isn’t reporting that anything is wrong with the file; it’s reporting that it doesn’t recognise who published it. Every unsigned beta from every small developer behaves this way.</p>
+    <p><strong>Why:</strong> Apple’s Gatekeeper only recognises installers that have been signed with a paid Apple Developer ID and submitted to Apple for notarization. FLOATING doesn’t have that yet — the developer account gets set up before the public release, not during a beta. macOS isn’t reporting that anything is wrong with the file; it’s reporting that it doesn’t recognise who published it. Every unsigned beta from every small developer behaves this way.</p>
     <p>Two ways through it — try the first, fall back to the second:</p>
 
     <h3>Option A — Control-click → Open</h3>
@@ -122,6 +122,24 @@
 
     <h2>7. Installing a newer beta</h2>
     <p>Just run the newer <code>.pkg</code>. It replaces both plug-ins in place. You don’t need to uninstall first, and your saved projects and presets are unaffected.</p>
+
+    <h2>New in this build</h2>
+    <ul>
+      <li><strong>A first-run tour.</strong> FLOATING walks you through the panel the first time you open it. Replay it whenever you like from the corner menu in the footer — <em>Replay tour</em>.</li>
+      <li><strong>Keyboard access now covers VST3, not just the Audio Unit.</strong> Tab moves through the panel and the arrow keys change values in both formats.</li>
+      <li><strong>The recovery gesture is safer.</strong> Command-clicking Capture when there is nothing to recover now does nothing, instead of clearing the Memory you were holding.</li>
+      <li><strong>VST3 reports its category correctly.</strong> It previously announced itself as a delay.</li>
+    </ul>
+
+    <h2>Known issues on this beta</h2>
+    <div class="warning">
+      <h4>Intel Macs are not supported yet</h4>
+      <p>This round is Apple Silicon only. The installer declines to run on an Intel Mac rather than install a plug-in that would not load. Intel support is coming — it isn’t ready to be tested yet.</p>
+    </div>
+    <div class="warning">
+      <h4>The installer is unsigned</h4>
+      <p>macOS blocks it once, on first open. That is expected and section 2 above covers the two clicks that get past it — it is not a sign that anything is wrong with the file.</p>
+    </div>
 
     <h2>Reporting problems</h2>
     <p>When something goes wrong, the most useful things to send are:</p>

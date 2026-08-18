@@ -10,8 +10,8 @@ Live: <https://floamusic.github.io/floating-site/>
 | Path | What it is |
 | --- | --- |
 | `index.html` | Home — what it does, the story, downloads, support, contact |
-| `install-macos.html` | macOS closed-beta install guide |
-| `install-windows.html` | Windows closed-beta install guide |
+| `install-macos.html` | macOS beta install guide |
+| `install-windows.html` | Windows beta install guide |
 | `assets/css/site.css` | Single stylesheet; palette lifted from the plug-in's `kDark` |
 | `assets/fonts/` | ShareTechMono (SIL Open Font License, included) |
 | `assets/img/` | Interface screenshots, web-optimised |
