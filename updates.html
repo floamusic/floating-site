@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FLOATING — check for updates</title>
+<meta name="description" content="Compare the version of FLOATING you have against the latest release.">
+<meta name="theme-color" content="#050506">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+
+<a class="skip" href="#doc">Skip to content</a>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="wordmark" href="index.html">FLOATING<span class="dot" aria-hidden="true"></span></a>
+    <nav class="topnav" aria-label="Sections">
+      <a href="index.html#beta">Downloads</a>
+      <a class="opt" href="install-macos.html">macOS guide</a>
+      <a class="opt" href="install-windows.html">Windows guide</a>
+    </nav>
+  </div>
+</header>
+
+<main class="doc" id="doc">
+  <div class="wrap">
+
+    <a class="crumb" href="index.html">← Back to FLOATING</a>
+
+    <div class="doc-head">
+      <p class="eyebrow">Updates</p>
+      <h1>Check for updates</h1>
+      <p class="lede text">FLOATING opens this page from its corner menu, passing the version it is running.</p>
+    </div>
+
+    <!-- The two numbers. Both start at the value that is true with no
+         JavaScript at all: the running version is unknown until the query
+         string is read, and the latest release is the one baked in below. -->
+    <div class="vpair">
+      <div>
+        <span class="k">You have</span>
+        <span class="v dim" id="yours">unknown</span>
+      </div>
+      <span class="arrow" aria-hidden="true">→</span>
+      <div>
+        <span class="k">Latest release</span>
+        <!-- data-latest-version is the same hook the other pages use, and is
+             refreshed by the same script. The value written here is what a
+             reader sees if the API is unreachable or JavaScript is off, so it
+             must be updated when a release goes out. -->
+        <span class="v" id="latest" data-latest-version>v0.2.0</span>
+      </div>
+    </div>
+
+    <!-- The no-JavaScript answer, and the pre-comparison answer, are the same
+         one: here is the latest release, compare it yourself. It is replaced
+         in place once the comparison can actually be made. -->
+    <div class="verdict is-unknown" id="verdict">
+      <h2 id="verdictHead">Compare against the version in your plug-in</h2>
+      <p class="text" id="verdictBody">FLOATING shows its version in the bottom corner of its panel. If it is lower than the release above, there is a newer build to install.</p>
+      <div class="u-actions" id="verdictActions" hidden></div>
+    </div>
+
+    <h2>Installing an update</h2>
+    <p>Install the new version the same way you installed the first one — it replaces the old build in place, and your saved sessions keep working. The <a href="install-macos.html">macOS</a> and <a href="install-windows.html">Windows</a> guides have the steps.</p>
+
+    <div class="note">
+      FLOATING does not check for updates on its own and never connects to anything by itself. The menu item opens this page in your browser; the comparison happens here, not in the plug-in.
+    </div>
+
+    <h2>Something look wrong?</h2>
+    <p>If the version above does not match what your plug-in shows, your DAW may still be loading an older copy — some hosts cache their plugin list until you force a rescan. Reach me on Instagram or Telegram at <a href="https://instagram.com/floamusic" rel="noopener">@floamusic</a> / <a href="https://t.me/floamusic" rel="noopener">@floamusic</a>.</p>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="mono">FLOATING · by Fløa · <span data-latest-version>v0.2.0</span></span>
+    <span class="mono"><a href="index.html">Home</a> · <a href="index.html#beta">Downloads</a></span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  var REPO = 'floamusic/floating-site';
+  var RELEASES = 'https://github.com/' + REPO + '/releases/latest';
+  var DL = 'https://github.com/' + REPO + '/releases/latest/download/';
+
+  // ---------------------------------------------------------------------
+  // Version parsing — the same law the plug-in used to apply internally.
+  //
+  // Ported deliberately rather than reinvented. The trap it exists for is
+  // lexical comparison: as text "0.10.0" sorts BELOW "0.9.0", so a string
+  // compare works perfectly up to 0.9.x and then silently stops reporting
+  // every release after it. Fields are parsed to integers and compared
+  // tuple-wise, which is the only reason this page keeps working past a
+  // double-digit minor.
+  //
+  // Strict: an optional leading 'v', then MAJOR.MINOR.PATCH as digits, then
+  // end-of-string or a '-' (pre-release) or '+' (build metadata) marker.
+  // GitHub tags carry the 'v' and the plug-in does not send one, so one
+  // parser has to read both forms.
+  // ---------------------------------------------------------------------
+  function parseVersion (text) {
+    if (typeof text !== 'string') return null;
+    var m = /^[vV]?(\d{1,6})\.(\d{1,6})\.(\d{1,6})(?:([-+])[0-9A-Za-z.\-]*)?$/.exec(text.trim());
+    if (!m) return null;
+    return {
+      major: +m[1],
+      minor: +m[2],
+      patch: +m[3],
+      // Presence only, never the suffix TEXT: its single job is to rank a
+      // pre-release below the same numbers without one, so that v0.1.0-beta.1
+      // — which is a live tag on this repo — can never read as newer than a
+      // finished 0.1.0. Build metadata ('+') does not lower a version.
+      pre: m[4] === '-'
+    };
+  }
+
+  function compare (a, b) {
+    if (a.major !== b.major) return a.major < b.major ? -1 : 1;
+    if (a.minor !== b.minor) return a.minor < b.minor ? -1 : 1;
+    if (a.patch !== b.patch) return a.patch < b.patch ? -1 : 1;
+    if (a.pre !== b.pre) return a.pre ? -1 : 1;
+    return 0;
+  }
+
+  // Rendered from the PARSED integers, never from the received string. The
+  // query parameter is public and anyone can put anything in it, so nothing a
+  // visitor types ever reaches the page — not as HTML, and not as text.
+  function show (v) {
+    return 'v' + v.major + '.' + v.minor + '.' + v.patch + (v.pre ? '-pre' : '');
+  }
+
+  function el (id) { return document.getElementById(id); }
+
+  function setVerdict (state, head, body, actions) {
+    var box = el('verdict');
+    box.className = 'verdict is-' + state;
+    el('verdictHead').textContent = head;
+    el('verdictBody').textContent = body;
+
+    var bar = el('verdictActions');
+    bar.textContent = '';
+    if (actions && actions.length) {
+      actions.forEach(function (a) {
+        var link = document.createElement('a');
+        link.className = a.ghost ? 'btn ghost' : 'btn';
+        link.href = a.href;
+        link.textContent = a.label;
+        if (a.href.indexOf('http') === 0) link.rel = 'noopener';
+        bar.appendChild(link);
+      });
+      bar.hidden = false;
+    } else {
+      bar.hidden = true;
+    }
+  }
+
+  var downloads = [
+    { label: 'Download for macOS',   href: DL + 'FLOATING-macOS-latest-beta.pkg' },
+    { label: 'Download for Windows', href: DL + 'FLOATING-Windows-latest-beta.zip' }
+  ];
+
+  // ---------------------------------------------------------------------
+  // The running version, straight off the query string.
+  // ---------------------------------------------------------------------
+  var raw = null;
+  try {
+    raw = new URLSearchParams(window.location.search).get('v');
+  } catch (e) { /* no URLSearchParams: treated as "not told" */ }
+
+  var mine = parseVersion(raw);
+  if (mine) el('yours').textContent = show(mine), el('yours').className = 'v';
+
+  // ---------------------------------------------------------------------
+  // The latest release. Live from the GitHub API, falling back to the value
+  // baked into the markup above.
+  //
+  // Live is the primary source because a baked-in number goes stale in
+  // SILENCE — it keeps answering, confidently, with last release's answer.
+  // The rate limit that made this a bad idea inside the plug-in does not bite
+  // the same way here: this is one request from one person's browser, on their
+  // own IP, when they deliberately opened the page.
+  //
+  // The baked value is the floor, not the plan. It is what a reader sees when
+  // the API is unreachable, rate-limited, or JavaScript is off entirely, and
+  // it is refreshed at release time along with every other page's.
+  // ---------------------------------------------------------------------
+  function resolveLatest () {
+    return fetch('https://api.github.com/repos/' + REPO + '/releases/latest',
+                 { headers: { Accept: 'application/vnd.github+json' } })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) { return (d && d.tag_name) || null; })
+      .catch(function () { return null; });
+  }
+
+  resolveLatest().then(function (tag) {
+    if (tag) {
+      document.querySelectorAll('[data-latest-version]').forEach(function (n) {
+        n.textContent = tag;
+      });
+    }
+
+    // Whatever is on screen now — fetched or baked — is what we compare with.
+    var latest = parseVersion(el('latest').textContent);
+
+    // The published value should always parse. If it somehow does not, say so
+    // plainly rather than inventing a comparison out of it.
+    if (!latest) {
+      setVerdict('unknown',
+                 'Could not read the latest release',
+                 'The release list did not give a version this page could read. The releases page has the current build.',
+                 [{ label: 'Open releases', href: RELEASES, ghost: true }]);
+      return;
+    }
+
+    // CASE 4 — nothing usable in the query string. Not an error and not the
+    // visitor's fault: most people arrive here by clicking a link, not from
+    // inside the plug-in. Say what the latest release is and let them read
+    // their own version off the panel.
+    if (!mine) {
+      setVerdict('unknown',
+                 'Latest release is ' + show(latest),
+                 raw === null
+                   ? 'This page was opened without a version, so there is nothing to compare against. FLOATING shows its own version in the bottom corner of its panel — if it is lower than the release above, there is a newer build.'
+                   : 'The version in the link could not be read, so there is nothing to compare against. FLOATING shows its own version in the bottom corner of its panel — if it is lower than the release above, there is a newer build.',
+                 downloads.map(function (d) { return { label: d.label, href: d.href, ghost: true }; }));
+      return;
+    }
+
+    var order = compare(mine, latest);
+
+    // CASE 1 — behind. The one outcome that asks for an action.
+    if (order < 0) {
+      setVerdict('update',
+                 'Update available',
+                 'You have ' + show(mine) + '. The latest release is ' + show(latest) + '. Installing it replaces your current build in place — your saved sessions keep working.',
+                 downloads);
+      return;
+    }
+
+    // CASE 3 — ahead of the published release. This happens on every
+    // development build, because the version is bumped in the source before
+    // the release is cut. It is deliberately NOT phrased as a problem: there
+    // is nothing to fix and nothing to download.
+    if (order > 0) {
+      setVerdict('ahead',
+                 'You are ahead of the latest release',
+                 'You have ' + show(mine) + ', which is newer than the latest published release, ' + show(latest) + '. That is normal for a development or pre-release build — there is nothing to install.',
+                 [{ label: 'Open releases', href: RELEASES, ghost: true }]);
+      return;
+    }
+
+    // CASE 2 — current.
+    setVerdict('current',
+               'You are up to date',
+               'You have ' + show(mine) + ', which is the latest release. Nothing to do.',
+               null);
+  });
+})();
+</script>
+
+</body>
+</html>

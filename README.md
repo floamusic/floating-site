@@ -12,6 +12,7 @@ Live: <https://floamusic.github.io/floating-site/>
 | `index.html` | Home — what it does, the story, downloads, support, contact |
 | `install-macos.html` | macOS beta install guide |
 | `install-windows.html` | Windows beta install guide |
+| `updates.html` | Update check — **the plug-in's corner menu opens this page**, see below |
 | `assets/css/site.css` | Single stylesheet; palette lifted from the plug-in's `kDark` |
 | `assets/fonts/` | ShareTechMono (SIL Open Font License, included) |
 | `assets/img/` | Interface screenshots, web-optimised |
@@ -42,6 +43,29 @@ Binaries are **not** in this repo. They are attached to the
 [`v0.1.0-beta.1` release](https://github.com/floamusic/floating-site/releases/tag/v0.1.0-beta.1),
 and the download buttons link straight at those assets. `SHA256SUMS.txt` on the
 release lets anyone verify what they downloaded.
+
+## The update check
+
+FLOATING's corner menu has a **Check for Updates** item. It makes no network
+request of its own: it opens
+
+```
+https://floamusic.github.io/floating-site/updates.html?v=<running version>
+```
+
+and `updates.html` does the comparison against the latest release. The plug-in
+sends nothing but the version it is running.
+
+⚠ **The path is hardcoded in the plug-in.** `updates.html` cannot be renamed,
+moved, or deleted without shipping a new plug-in build — every already-installed
+copy points here. The two repositories have no build-time link, so nothing would
+catch the break except a user clicking the menu item.
+
+The page reads the current release **live from the GitHub Releases API**, and
+falls back to the `data-latest-version` value baked into the markup when that
+request fails or JavaScript is off. That baked value is the same one the other
+pages carry and is refreshed at release time; live is primary because a baked
+number goes stale in silence.
 
 ## Note on this repo
 

@@ -658,3 +658,58 @@ td code { white-space: nowrap; }
   margin-bottom: clamp(34px, 4.4vw, 52px);
 }
 .doc-head h1 { font-size: clamp(26px, 4.6vw, 44px); margin-bottom: 16px; }
+
+/* ---------- updates page ----------
+   The verdict block is the whole page, so it is sized like a hero rather than
+   like a note. Three visual states, and only ONE of them is accent-orange:
+   "an update exists" is the only outcome that asks the reader to do something.
+   Up-to-date and ahead-of-release are both fine, and colouring them the same
+   as a call to action would make an ordinary answer look like a problem. */
+
+.verdict {
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--ink-low);
+  background: var(--panel);
+  border-radius: 3px;
+  padding: clamp(22px, 3vw, 34px);
+  margin-bottom: clamp(28px, 3.4vw, 40px);
+}
+.verdict[hidden] { display: none; }
+.verdict h2 { margin: 0 0 12px; font-size: clamp(20px, 3.2vw, 28px); }
+.verdict p:last-child { margin-bottom: 0; }
+.verdict .eyebrow { margin-bottom: 14px; }
+
+/* An update is available — the one state that wants attention. */
+.verdict.is-update { border-left-color: var(--accent); }
+.verdict.is-update h2 { color: var(--accent); }
+
+/* Up to date, ahead of the release, or nothing to compare: quiet on purpose. */
+.verdict.is-current  { border-left-color: var(--ink-muted); }
+.verdict.is-ahead    { border-left-color: var(--ink-muted); }
+.verdict.is-unknown  { border-left-color: var(--ink-low); }
+
+/* The two numbers, side by side, in the mono face the plug-in's own footer
+   uses — so the string on this page looks like the string in the corner of
+   the panel the reader just copied it from. */
+.vpair {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 28px;
+  align-items: baseline;
+  margin: 0 0 20px;
+}
+.vpair > div { display: flex; flex-direction: column; gap: 5px; }
+.vpair .k {
+  color: var(--ink-muted);
+  font: 10.5px/1 var(--mono);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.vpair .v { font: clamp(19px, 2.6vw, 25px)/1 var(--mono); color: var(--ink); }
+.vpair .v.dim { color: var(--ink-muted); }
+.vpair .arrow { color: var(--ink-low); font-size: 20px; align-self: center; }
+@media (max-width: 420px) { .vpair .arrow { display: none; } }
+
+.u-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.u-actions[hidden] { display: none; }
+.u-actions .btn { width: auto; min-width: 200px; }
