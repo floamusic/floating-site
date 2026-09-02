@@ -13,14 +13,31 @@ Live: <https://floamusic.github.io/floating-site/>
 | `install-macos.html` | macOS beta install guide |
 | `install-windows.html` | Windows beta install guide |
 | `updates.html` | Update check — **the plug-in's corner menu opens this page**, see below |
+| `changelog.html` | Release notes, read from the GitHub API at load |
 | `assets/css/site.css` | Single stylesheet; palette lifted from the plug-in's `kDark` |
 | `assets/fonts/` | ShareTechMono (SIL Open Font License, included) |
 | `assets/img/` | Interface screenshots, web-optimised |
 | `assets/video/` | Hero demo video, transcoded for web (see below) |
 
-Static HTML and CSS only — no build step, no framework, no third-party
-requests. The font is self-hosted, so the pages load nothing from outside the
-origin.
+Static HTML and CSS only — no build step and no framework. The font is
+self-hosted, and nothing is loaded from a CDN.
+
+Four pages do call one third-party endpoint: `api.github.com`, to read the
+latest release. Everything those calls affect is published in the HTML first
+and only overwritten on success, so a blocked, failed or rate-limited request
+leaves a correct page rather than a blank one — and the pages still work with
+JavaScript off.
+
+## Screenshots
+
+`assets/img/hero-memory*.jpg` is `10-remembered.png` from the product repo's
+manual render harness (`FloatingSmokeTest --manual-shots <dir> 3`), resized with
+`sips -Z 1920` / `-Z 2560` at quality 86 / 82. The harness renders the real
+editor through the shipping processor path with the footer version neutralised,
+which is why no screenshot here carries a version number to go stale.
+
+The harness lives in the private product repo, so refreshing a screenshot is a
+render-then-copy, not something this repo can build.
 
 ## Hero video
 

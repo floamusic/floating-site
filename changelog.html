@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FLOATING — changelog</title>
+<meta name="description" content="What changed in each release of FLOATING, straight from the release notes.">
+<meta name="theme-color" content="#050506">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+
+<a class="skip" href="#doc">Skip to content</a>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="wordmark" href="index.html">FLOATING<span class="dot" aria-hidden="true"></span></a>
+    <nav class="topnav" aria-label="Sections">
+      <a href="index.html#beta">Downloads</a>
+      <a class="opt" href="updates.html">Check for updates</a>
+      <a class="opt" href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="doc" id="doc">
+  <div class="wrap">
+
+    <a class="crumb" href="updates.html">← Check for updates</a>
+
+    <div class="doc-head">
+      <p class="eyebrow">Changelog</p>
+      <h1>What changed</h1>
+      <p class="lede text">Every FLOATING release, newest first.</p>
+      <p class="small muted text">These are the release notes themselves, read from GitHub when the page loads — so this list cannot fall behind the downloads. If the request fails or JavaScript is off, the releases published up to <span data-latest-version>v0.2.0</span> are below.</p>
+    </div>
+
+    <!-- STATIC FALLBACK. This is what a reader sees with no JavaScript, or when
+         the API is unreachable or rate-limited, so it has to be real content
+         rather than a spinner. The script replaces it wholesale on success;
+         when a release goes out, this block is what needs updating by hand. -->
+    <div id="releases">
+
+      <article class="rel">
+        <header class="rel-head">
+          <h2>v0.2.0</h2>
+          <span class="rel-date">17 August 2026</span>
+        </header>
+        <div class="rel-body">
+          <ul>
+            <li>First-launch onboarding tour, replayable any time from the corner menu in the footer (&ldquo;Replay tour&rdquo;)</li>
+            <li>Keyboard accessibility now covers VST3 as well as AU: Tab moves through the panel and the arrow keys change values. Since verified working in the Windows VST3 too.</li>
+            <li>Capture recovery gesture now works on Windows as well as macOS (Cmd+click on macOS, Ctrl+click on Windows)</li>
+            <li>Fixed: the recovery gesture could destroy the held Memory instead of doing nothing, when there was no previous generation to recover</li>
+            <li>VST3 now correctly reports its category (previously miscategorized as Delay)</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="rel">
+        <header class="rel-head">
+          <h2>v0.1.0-beta.1</h2>
+          <span class="rel-date">12 August 2026</span>
+        </header>
+        <div class="rel-body">
+          <p>The first beta build of FLOATING — a capture-first memory instrument. FLOATING listens to what you just played and turns it into Memory: it holds the phrase while you decide what to do with it.</p>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="note">
+      <p>Looking for the files? The <a href="index.html#beta">downloads</a> always point at the newest release, and <a href="updates.html">check for updates</a> compares it against the version you are running.</p>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="mono">FLOATING · by Fløa · <span data-latest-version>v0.2.0</span></span>
+    <span class="mono"><a href="index.html">Home</a> · <a href="updates.html">Updates</a></span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  var REPO = 'floamusic/floating-site';
+
+  // -------------------------------------------------------------------
+  // Markdown subset renderer.
+  //
+  // Scoped to what the release notes actually use — headings, bold, links,
+  // inline code, fenced code, bullet lists and pipe tables — rather than
+  // pulling a library in. The site loads nothing from a CDN and this is not
+  // worth being the first exception.
+  //
+  // Everything is HTML-escaped BEFORE any markup is added, so a release body
+  // can never inject an element: the only tags in the output are the ones
+  // this function writes. Link hrefs must match http(s) to be linked at all,
+  // which keeps javascript: URLs out even though only the repo owner can
+  // write these bodies.
+  // -------------------------------------------------------------------
+  var ESC = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+  function esc (s) { return String(s).replace(/[&<>"']/g, function (c) { return ESC[c]; }); }
+
+  function inline (s) {
+    return s
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+      .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" rel="noopener">$1</a>');
+  }
+
+  function isTableRow (l) { return /^\s*\|.*\|\s*$/.test(l); }
+  function cells (l) {
+    return l.replace(/^\s*\|/, '').replace(/\|\s*$/, '').split('|').map(function (c) { return c.trim(); });
+  }
+
+  function render (md) {
+    var lines = esc(md.replace(/\r\n/g, '\n')).split('\n');
+    var out = [], i = 0, para = [];
+
+    function flushPara () {
+      if (para.length) { out.push('<p>' + inline(para.join(' ')) + '</p>'); para = []; }
+    }
+
+    while (i < lines.length) {
+      var l = lines[i];
+
+      if (/^```/.test(l)) {                                   // fenced code
+        flushPara();
+        var code = [];
+        i++;
+        while (i < lines.length && !/^```/.test(lines[i])) { code.push(lines[i]); i++; }
+        i++;
+        out.push('<pre class="path"><code>' + code.join('\n') + '</code></pre>');
+        continue;
+      }
+
+      if (/^#{1,6}\s+/.test(l)) {                             // heading
+        flushPara();
+        out.push('<h3>' + inline(l.replace(/^#{1,6}\s+/, '')) + '</h3>');
+        i++;
+        continue;
+      }
+
+      if (isTableRow(l) && i + 1 < lines.length && /^\s*\|[\s:|-]+\|\s*$/.test(lines[i + 1])) {
+        flushPara();
+        var head = cells(l), rows = [];
+        i += 2;
+        while (i < lines.length && isTableRow(lines[i])) { rows.push(cells(lines[i])); i++; }
+        out.push('<div class="table-scroll"><table><thead><tr>' +
+          head.map(function (c) { return '<th scope="col">' + inline(c) + '</th>'; }).join('') +
+          '</tr></thead><tbody>' +
+          rows.map(function (r) {
+            return '<tr>' + r.map(function (c) { return '<td>' + inline(c) + '</td>'; }).join('') + '</tr>';
+          }).join('') + '</tbody></table></div>');
+        continue;
+      }
+
+      if (/^\s*[-*]\s+/.test(l)) {                            // bullet list
+        flushPara();
+        var items = [];
+        while (i < lines.length && /^\s*[-*]\s+/.test(lines[i])) {
+          var item = lines[i].replace(/^\s*[-*]\s+/, '');
+          i++;
+          // a wrapped continuation line belongs to the item above it
+          while (i < lines.length && /^\s{2,}\S/.test(lines[i]) && !/^\s*[-*]\s+/.test(lines[i])) {
+            item += ' ' + lines[i].trim(); i++;
+          }
+          items.push('<li>' + inline(item) + '</li>');
+        }
+        out.push('<ul>' + items.join('') + '</ul>');
+        continue;
+      }
+
+      if (/^\s*$/.test(l)) { flushPara(); i++; continue; }
+
+      para.push(l.trim());
+      i++;
+    }
+    flushPara();
+    return out.join('');
+  }
+
+  // -------------------------------------------------------------------
+  function fmtDate (iso) {
+    var d = new Date(iso);
+    if (isNaN(d)) return '';
+    return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+  }
+
+  fetch('https://api.github.com/repos/' + REPO + '/releases',
+        { headers: { Accept: 'application/vnd.github+json' } })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (list) {
+      if (!Array.isArray(list) || !list.length) return;
+      var live = list.filter(function (r) { return !r.draft; });
+      if (!live.length) return;
+
+      var html = live.map(function (r) {
+        var title = esc(r.tag_name || r.name || '');
+        var date = r.published_at ? fmtDate(r.published_at) : '';
+        var body = r.body ? render(r.body) : '<p class="muted">No notes for this release.</p>';
+        return '<article class="rel"><header class="rel-head"><h2>' + title + '</h2>' +
+               (date ? '<span class="rel-date">' + esc(date) + '</span>' : '') +
+               '</header><div class="rel-body">' + body + '</div></article>';
+      }).join('');
+
+      document.getElementById('releases').innerHTML = html;
+
+      var newest = live[0].tag_name;
+      if (newest) {
+        document.querySelectorAll('[data-latest-version]').forEach(function (n) { n.textContent = newest; });
+      }
+    })
+    .catch(function () { /* the published fallback above stands */ });
+})();
+</script>
+
+</body>
+</html>

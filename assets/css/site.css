@@ -713,3 +713,31 @@ td code { white-space: nowrap; }
 .u-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
 .u-actions[hidden] { display: none; }
 .u-actions .btn { width: auto; min-width: 200px; }
+
+/* ---------- changelog releases ---------- */
+
+.rel { padding: clamp(26px, 3.4vw, 38px) 0; border-top: 1px solid var(--line-soft); }
+.rel:first-child { border-top: 0; padding-top: 0; }
+.rel-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 18px;
+  margin-bottom: 20px;
+}
+.rel-head h2 {
+  margin: 0;
+  font-size: clamp(21px, 2.8vw, 28px);
+  color: var(--accent);
+}
+.rel-date {
+  color: var(--ink-muted);
+  font: 11px/1.5 var(--mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+/* The body is rendered from a release note, so it inherits the .doc rules for
+   headings, lists, tables and code rather than restyling any of them here. */
+.rel-body > *:first-child { margin-top: 0; }
+.rel-body > *:last-child { margin-bottom: 0; }
+.rel-body h3 { margin-top: 30px; }
