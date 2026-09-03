@@ -32,7 +32,7 @@
       <p class="eyebrow">Changelog</p>
       <h1>What changed</h1>
       <p class="lede text">Every FLOATING release, newest first.</p>
-      <p class="small muted text">These are the release notes themselves, read from GitHub when the page loads — so this list cannot fall behind the downloads. If the request fails or JavaScript is off, the releases published up to <span data-latest-version>v0.2.0</span> are below.</p>
+      <p class="small muted text">These are the release notes themselves, read from GitHub when the page loads — so this list cannot fall behind the downloads. If the request fails or JavaScript is off, the releases published up to <span data-latest-version>v0.3.0</span> are below.</p>
     </div>
 
     <!-- STATIC FALLBACK. This is what a reader sees with no JavaScript, or when
@@ -40,6 +40,40 @@
          rather than a spinner. The script replaces it wholesale on success;
          when a release goes out, this block is what needs updating by hand. -->
     <div id="releases">
+
+      <article class="rel">
+        <header class="rel-head">
+          <h2>v0.3.0</h2>
+          <span class="rel-date">3 September 2026</span>
+        </header>
+        <div class="rel-body">
+          <p><strong>BPM Sync</strong></p>
+          <ul>
+            <li>A new toggle at the right-hand end of the Capture row. Engaged, the next Capture is snapped so the Memory loops in a musical division of the host tempo &mdash; a half bar, one, two, four or eight &mdash; and the captured phrase lands on the project&rsquo;s grid. Off by default, saved with the project, and it affects the next Capture only.</li>
+            <li>Sync aligns the Capture, not everything you do afterwards. Rate, Window, Horizon size, Shape in Tape and switching to Stretch all take a synced Memory off the grid; the readout says <code>OFF GRID</code> rather than constraining you, and a new Capture puts it back.</li>
+            <li>Sync needs a four-beat bar. In any other time signature it declines and says so.</li>
+          </ul>
+          <p><strong>Print</strong></p>
+          <ul>
+            <li>Print now starts where the loop starts. Two prints of the same untouched Memory used to begin at different points in the phrase; they now begin at the same place.</li>
+            <li>The wait before a print begins is shown: the chip reads <code>CUEING</code> until the pass opens.</li>
+            <li>Fixed: butting two prints of the same Memory end to end left an audible transient at the joint.</li>
+          </ul>
+          <p><strong>Fixed</strong></p>
+          <ul>
+            <li>The Horizon marker now follows the sound. It was drawing a position Tape and Stretch do not actually play from.</li>
+            <li>Frozen Stretch no longer climbs in CPU the longer it is held.</li>
+            <li>Leaving Stretch while it is frozen no longer lands on a different note of the phrase.</li>
+            <li>Bold text in the interface now renders in the intended typeface, on both platforms.</li>
+          </ul>
+          <p><strong>Changed</strong></p>
+          <ul>
+            <li>&ldquo;Check for Updates&rdquo; opens a page in your browser instead of checking from inside the plug-in. FLOATING makes no network requests at all.</li>
+            <li>The panel now invites the first phrase when there is no Memory yet and nothing is playing.</li>
+            <li>The manual has been re-shot against this build.</li>
+          </ul>
+        </div>
+      </article>
 
       <article class="rel">
         <header class="rel-head">
@@ -78,7 +112,7 @@
 
 <footer>
   <div class="wrap">
-    <span class="mono">FLOATING · by Fløa · <span data-latest-version>v0.2.0</span></span>
+    <span class="mono">FLOATING · by Fløa · <span data-latest-version>v0.3.0</span></span>
     <span class="mono"><a href="index.html">Home</a> · <a href="updates.html">Updates</a></span>
   </div>
 </footer>
