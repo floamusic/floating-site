@@ -125,11 +125,22 @@
 
     <h2>New in this build</h2>
     <ul>
-      <li><strong>A first-run tour.</strong> FLOATING walks you through the panel the first time you open it. Replay it whenever you like from the corner menu in the footer — <em>Replay tour</em>.</li>
-      <li><strong>Keyboard access now covers VST3, not just the Audio Unit.</strong> Tab moves through the panel and the arrow keys change values in both formats.</li>
-      <li><strong>The recovery gesture is safer.</strong> Command-clicking Capture when there is nothing to recover now does nothing, instead of clearing the Memory you were holding.</li>
-      <li><strong>VST3 reports its category correctly.</strong> It previously announced itself as a delay.</li>
+      <li><strong>BPM Sync.</strong> A new toggle at the right-hand end of the Capture row. Engaged, the next Capture is snapped so the Memory loops in a musical division of the host tempo, and the captured phrase lands on the project’s grid. Off by default.</li>
+      <li><strong>Print starts where the loop starts.</strong> Two prints of the same untouched Memory now begin at the same point in the phrase. The wait before a pass opens is shown on the chip as <code>CUEING</code>, counting down.</li>
+      <li><strong>The Horizon marker follows the sound.</strong> It was drawing a position Tape and Stretch do not actually play from.</li>
+      <li><strong>Frozen Stretch no longer climbs in CPU</strong> the longer it is held, and leaving it while frozen resumes where it was sounding.</li>
+      <li><strong>Bold text renders in the intended typeface.</strong> It had been quietly falling back to a system font.</li>
+      <li><strong>Check for Updates opens this site instead of checking from inside the plug-in.</strong> FLOATING makes no network requests at all.</li>
     </ul>
+    <p>Earlier work still applies: the first-run tour (replayable from the corner menu), keyboard access across both AU and VST3, and the safer Command-click recovery gesture.</p>
+
+    <h2>Verify what you downloaded (optional)</h2>
+    <p>Every release carries a <code>SHA256SUMS.txt</code>. Download it into the same folder as the installer — <a href="https://github.com/floamusic/floating-site/releases/latest/download/SHA256SUMS.txt">SHA256SUMS.txt</a> — then:</p>
+    <p class="path">cd ~/Downloads &amp;&amp; shasum -a 256 --ignore-missing -c SHA256SUMS.txt</p>
+    <p>It should print <code>FLOATING-macOS-latest-beta.pkg: OK</code>.</p>
+    <div class="note">
+      <p><code>--ignore-missing</code> is not optional. The sums file covers every payload on the release — both platforms, the manual, and each one under two names — so without that flag it reports <code>FAILED open or read</code> for the files you did not download and exits non-zero, which reads as verification failing when nothing is wrong.</p>
+    </div>
 
     <h2>Known issues on this beta</h2>
     <div class="warning">

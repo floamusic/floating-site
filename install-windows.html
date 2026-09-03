@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FLOATING — Windows install guide (beta)</title>
-<meta name="description" content="How to install the FLOATING beta on Windows: extracting the VST3, where to copy it, why there is no SmartScreen prompt, and the one known limitation on this build.">
+<meta name="description" content="How to install the FLOATING beta on Windows: extracting the VST3, where to copy it, why there is no SmartScreen prompt, and what is known to be untested on this build.">
 <meta name="theme-color" content="#050506">
 <link rel="stylesheet" href="assets/css/site.css">
 </head>
@@ -56,13 +56,24 @@
     <p>Open your DAW, force a plugin rescan if it doesn’t appear automatically, and look for FLOATING under VST3 instruments/effects (check your DAW’s own scan log if it doesn’t show up).</p>
 
     <h2>New in this build</h2>
-    <p>The Capture recovery gesture now works on Windows: <strong>Ctrl-click Capture</strong> to step back to the previous Memory. It was unreachable on Windows in the previous beta.</p>
-    <p>Keyboard navigation works on Windows: Tab moves through the panel and the arrow keys change values. Confirmed by hand in Ableton on this build.</p>
+    <ul>
+      <li><strong>BPM Sync.</strong> A new toggle at the right-hand end of the Capture row. Engaged, the next Capture is snapped so the Memory loops in a musical division of the host tempo, and the captured phrase lands on the project’s grid. Off by default.</li>
+      <li><strong>Print starts where the loop starts.</strong> Two prints of the same untouched Memory now begin at the same point in the phrase. The wait before a pass opens is shown on the chip as <code>CUEING</code>, counting down.</li>
+      <li><strong>The Horizon marker follows the sound.</strong> It was drawing a position Tape and Stretch do not actually play from.</li>
+      <li><strong>Bold text renders in the intended typeface.</strong> On both platforms it had been quietly falling back to a system font.</li>
+      <li><strong>Check for Updates opens this site instead of checking from inside the plug-in.</strong> FLOATING makes no network requests at all.</li>
+    </ul>
+    <p>Earlier Windows work still applies: <strong>Ctrl-click Capture</strong> steps back to the previous Memory, and keyboard navigation works — Tab moves through the panel and the arrow keys change values. Both confirmed by hand in Ableton.</p>
+
+    <h2>Verify what you downloaded (optional)</h2>
+    <p>Every release carries a <a href="https://github.com/floamusic/floating-site/releases/latest/download/SHA256SUMS.txt">SHA256SUMS.txt</a>. In PowerShell, from the folder you downloaded into:</p>
+    <p class="path">Get-FileHash FLOATING-Windows-latest-beta.zip -Algorithm SHA256</p>
+    <p>Compare the <code>Hash</code> it prints against the line for that filename in <code>SHA256SUMS.txt</code>. PowerShell prints it in capitals and the file lists it in lower case; that difference does not matter.</p>
 
     <h2>Known issues on this beta</h2>
     <div class="warning">
-      <h4>The version in the plug-in reads v0.1.0</h4>
-      <p>The Windows build shows <code>v0.1.0</code> in its footer. This is the correct current build — only the version label inside it is out of date. Nothing to report.</p>
+      <h4>Print / Drag has not been tested on Windows</h4>
+      <p>Print writes a WAV and drags it into the session. That path is exercised on macOS but has not yet been run on Windows, so the folder it writes to — <code>&lt;User Music Directory&gt;\FLOATING\Prints\</code> — and the drag itself are unverified here. If you try it, tell me what happened either way.</p>
     </div>
 
     <h2>Uninstall</h2>
