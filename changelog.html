@@ -32,7 +32,7 @@
       <p class="eyebrow">Changelog</p>
       <h1>What changed</h1>
       <p class="lede text">Every FLOATING release, newest first.</p>
-      <p class="small muted text">These are the release notes themselves, read from GitHub when the page loads — so this list cannot fall behind the downloads. If the request fails or JavaScript is off, the releases published up to <span data-latest-version>v0.3.0</span> are below.</p>
+      <p class="small muted text">These are the release notes themselves, read from GitHub when the page loads — so this list cannot fall behind the downloads. If the request fails or JavaScript is off, the releases published up to <span data-latest-version>v0.4.0</span> are below.</p>
     </div>
 
     <!-- STATIC FALLBACK. This is what a reader sees with no JavaScript, or when
@@ -40,6 +40,39 @@
          rather than a spinner. The script replaces it wholesale on success;
          when a release goes out, this block is what needs updating by hand. -->
     <div id="releases">
+
+      <article class="rel">
+        <header class="rel-head">
+          <h2>v0.4.0</h2>
+          <span class="rel-date">29 September 2026</span>
+        </header>
+        <div class="rel-body">
+          <p><strong>FREE | SYNC</strong></p>
+          <ul>
+            <li>The BPM Sync toggle is now a mode switch, in the same place at the right-hand end of the Capture row. <strong>FREE</strong> is FLOATING as it was: tempo plays no part. <strong>SYNC</strong> captures a musical division of the host tempo, lands it on the bar &mdash; and now keeps it there whatever you move. It starts on FREE and is saved with the project.</li>
+            <li>In SYNC every control holds the grid. Rate steps through seven speeds, 1/2X to 2X, halving the lap when it has to, so every lap still starts on the bar. Window becomes a ladder of laps, from the whole region down to a 16th. The Horizon snaps to halves and 16ths, and a drag inside the region moves it. Tape&rsquo;s FAST and FAST+ halve the lap. Stretch plays 16th-note slices, and FREEZE repeats one 16th.</li>
+            <li>The panel says what you hear. In SYNC the knobs read <code>4/3X</code> or <code>1 BAR</code> instead of percentages, and the line under the switch reads <code>ON GRID</code>, <code>SYNCED</code> while the transport is stopped, or <code>CAPTURE TO SYNC</code> when the Memory was captured in FREE. <code>OFF GRID</code> now means one thing: the project tempo or time signature changed. The panel turns blue in SYNC.</li>
+            <li>Stop the transport and a synced Memory keeps its own time; start it and it returns to the bar with a short crossfade. It stays synced after reopening the project or a change of sample rate.</li>
+            <li>In SYNC a print is a whole number of laps, at least one second long, and it begins on a bar line, so prints butt together on the grid.</li>
+            <li>What SYNC gives up: in Stretch, Shape has six positions instead of a continuous sweep, and its fastest forward end is not available; at two of Rate&rsquo;s steps the beats inside the loop lean into triplets, though every lap still starts on the bar. Switch to FREE for the continuous instrument.</li>
+          </ul>
+          <p><strong>Choir</strong></p>
+          <ul>
+            <li>Shape now changes Choir&rsquo;s timbre audibly: BODY leads with the octave below, BODY+ carries both octaves, GLOW leads with the octave above. The anchor stays the loudest voice and the level holds.</li>
+          </ul>
+          <p><strong>Fixed</strong></p>
+          <ul>
+            <li>A synced Memory held for a long time no longer drifts slowly off the bar.</li>
+            <li>The Horizon&rsquo;s LISTENING and REMEMBERING labels no longer overlap or get cut off at the right-hand corner.</li>
+            <li>A finished print is now released when switching FREE &harr; SYNC changes what you hear, as it already was for Rate, Window or Shape.</li>
+          </ul>
+          <p><strong>Changed</strong></p>
+          <ul>
+            <li>Stretch&rsquo;s top Shape position read CLEAN, a promise it no longer kept. It now reads DRIVE: its fastest forward progression.</li>
+            <li>The manual is rewritten for this release, and shorter.</li>
+          </ul>
+        </div>
+      </article>
 
       <article class="rel">
         <header class="rel-head">
@@ -112,7 +145,7 @@
 
 <footer>
   <div class="wrap">
-    <span class="mono">FLOATING · by Fløa · <span data-latest-version>v0.3.0</span></span>
+    <span class="mono">FLOATING · by Fløa · <span data-latest-version>v0.4.0</span></span>
     <span class="mono"><a href="index.html">Home</a> · <a href="updates.html">Updates</a></span>
   </div>
 </footer>

@@ -125,14 +125,13 @@
 
     <h2>New in this build</h2>
     <ul>
-      <li><strong>BPM Sync.</strong> A new toggle at the right-hand end of the Capture row. Engaged, the next Capture is snapped so the Memory loops in a musical division of the host tempo, and the captured phrase lands on the project’s grid. Off by default.</li>
-      <li><strong>Print starts where the loop starts.</strong> Two prints of the same untouched Memory now begin at the same point in the phrase. The wait before a pass opens is shown on the chip as <code>CUEING</code>, counting down.</li>
-      <li><strong>The Horizon marker follows the sound.</strong> It was drawing a position Tape and Stretch do not actually play from.</li>
-      <li><strong>Frozen Stretch no longer climbs in CPU</strong> the longer it is held, and leaving it while frozen resumes where it was sounding.</li>
-      <li><strong>Bold text renders in the intended typeface.</strong> It had been quietly falling back to a system font.</li>
-      <li><strong>Check for Updates opens this site instead of checking from inside the plug-in.</strong> FLOATING makes no network requests at all.</li>
+      <li><strong>FREE | SYNC.</strong> The BPM Sync toggle is now a mode switch in the same place. FREE plays as before, with tempo playing no part. SYNC lands the next Capture on the bar and keeps it there whatever you move — Rate, Window, the Horizon, Shape and Stretch all hold the grid. The panel turns blue in SYNC.</li>
+      <li><strong>The knobs read what you hear.</strong> In SYNC they show <code>4/3X</code> or <code>1 BAR</code> instead of percentages, and the line under the switch says <code>ON GRID</code>, <code>SYNCED</code> or <code>CAPTURE TO SYNC</code>.</li>
+      <li><strong>Choir’s Shape changes the timbre.</strong> BODY leads with the octave below, GLOW with the octave above; the level holds.</li>
+      <li><strong>Fixed:</strong> a synced Memory held for a long time no longer drifts off the bar, and the Horizon’s LISTENING and REMEMBERING labels no longer overlap.</li>
+      <li><strong>Stretch’s top position reads DRIVE</strong>, its fastest forward progression, instead of CLEAN.</li>
     </ul>
-    <p>Earlier work still applies: the first-run tour (replayable from the corner menu), keyboard access across both AU and VST3, and the safer Command-click recovery gesture.</p>
+    <p>Earlier work still applies: prints that start where the loop starts, the first-run tour (replayable from the corner menu), keyboard access across both AU and VST3, and the Command-click recovery gesture.</p>
 
     <h2>Verify what you downloaded (optional)</h2>
     <p>Every release carries a <code>SHA256SUMS.txt</code>. Download it into the same folder as the installer — <a href="https://github.com/floamusic/floating-site/releases/latest/download/SHA256SUMS.txt">SHA256SUMS.txt</a> — then:</p>
@@ -176,7 +175,7 @@
 
 <footer>
   <div class="wrap">
-    <span class="mono">FLOATING · by Fløa · <span data-latest-version>v0.3.0</span></span>
+    <span class="mono">FLOATING · by Fløa · <span data-latest-version>v0.4.0</span></span>
     <span class="mono"><a href="index.html">Home</a> · <a href="changelog.html">Changelog</a> · <a href="install-windows.html">Windows install</a></span>
   </div>
 </footer>
