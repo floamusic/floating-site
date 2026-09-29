@@ -32,7 +32,7 @@
     <div class="doc-head">
       <p class="eyebrow">Updates</p>
       <h1>Check for updates</h1>
-      <p class="lede text">FLOATING opens this page from its corner menu, passing the version it is running.</p>
+      <p class="lede text">FLOATING opens this page from its corner menu, passing the version it is running and its platform, macOS or Windows.</p>
     </div>
 
     <!-- The two numbers. Both start at the value that is true with no
@@ -171,6 +171,34 @@
   ];
 
   // ---------------------------------------------------------------------
+  // UPDATE-003 — the platform the plug-in was built for (`os=mac|win`), so
+  // the answer can be ONE download: this machine's installer, one click away.
+  // Only the two known values are accepted; anything else is ignored and the
+  // page offers both, exactly as it does for a build too old to send `os`.
+  // ---------------------------------------------------------------------
+  var os = null;
+  try {
+    var rawOs = new URLSearchParams(window.location.search).get('os');
+    if (rawOs === 'mac' || rawOs === 'win') os = rawOs;
+  } catch (e) { /* no URLSearchParams: both platforms */ }
+
+  var PLATFORM = {
+    mac: { name: 'macOS',   dl: downloads[0], other: downloads[1],
+           how: 'Close your DAW, open the downloaded .pkg and follow the installer, then reopen your DAW.' },
+    win: { name: 'Windows', dl: downloads[1], other: downloads[0],
+           how: 'Close your DAW, unzip the download and copy FLOATING.vst3 into C:\\Program Files\\Common Files\\VST3, replacing the old one, then reopen your DAW.' }
+  };
+
+  // The update offer: this platform's installer as the one primary button,
+  // the other platform as a quiet link for someone on a second machine.
+  function updateActions (isUpdate) {
+    if (!os) return downloads;
+    var p = PLATFORM[os];
+    return [{ label: (isUpdate ? 'Download the update for ' : 'Download for ') + p.name, href: p.dl.href },
+            { label: p.other.label, href: p.other.href, ghost: true }];
+  }
+
+  // ---------------------------------------------------------------------
   // The running version, straight off the query string.
   // ---------------------------------------------------------------------
   var raw = null;
@@ -233,7 +261,7 @@
                  raw === null
                    ? 'This page was opened without a version, so there is nothing to compare against. FLOATING shows its own version in the bottom corner of its panel — if it is lower than the release above, there is a newer build.'
                    : 'The version in the link could not be read, so there is nothing to compare against. FLOATING shows its own version in the bottom corner of its panel — if it is lower than the release above, there is a newer build.',
-                 downloads.map(function (d) { return { label: d.label, href: d.href, ghost: true }; }));
+                 (os ? updateActions(false) : downloads).map(function (d) { return { label: d.label, href: d.href, ghost: true }; }));
       return;
     }
 
@@ -243,8 +271,9 @@
     if (order < 0) {
       setVerdict('update',
                  'Update available',
-                 'You have ' + show(mine) + '. The latest release is ' + show(latest) + '. Installing it replaces your current build in place — your saved sessions keep working.',
-                 downloads);
+                 'You have ' + show(mine) + '. The latest release is ' + show(latest) + '. Installing it replaces your current build in place — your saved sessions keep working.'
+                   + (os ? ' ' + PLATFORM[os].how : ''),
+                 updateActions(true));
       return;
     }
 
