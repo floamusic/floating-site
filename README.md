@@ -30,9 +30,11 @@ JavaScript off.
 
 ## Screenshots
 
-`assets/img/hero-memory*.jpg` is `10-remembered.png` from the product repo's
-manual render harness (`FloatingSmokeTest --manual-shots <dir> 3`), resized with
-`sips -Z 1920` / `-Z 2560` at quality 86 / 82. The harness renders the real
+`assets/img/hero-memory*.jpg` is `hero-sync-curtain-3.png` from the product
+repo's promo render harness (`FloatingSmokeTest --promo-shots <dir> 3`) — the
+panel three frames into a FREE → SYNC switch, the same frame the v0.4.0
+announcement images use — resized with `sips -Z 1920` / `-Z 2560` at quality
+86 / 82. The harness renders the real
 editor through the shipping processor path with the footer version neutralised,
 which is why no screenshot here carries a version number to go stale.
 
