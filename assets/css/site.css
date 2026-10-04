@@ -129,6 +129,23 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; bo
   white-space: nowrap;
 }
 .wordmark:hover { border-bottom: 0; color: var(--ink); }
+/* Back to the Fløa showcase (floamusic.github.io), which lists every instrument. */
+.brandline { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.home-link {
+  font: 11.5px/1 var(--mono);
+  letter-spacing: 0.16em;
+  color: var(--ink-muted);
+  border-bottom: 0;
+  white-space: nowrap;
+}
+.home-link:hover { color: var(--accent); border-bottom: 0; }
+.home-sep { font: 11.5px/1 var(--mono); color: var(--ink-low); }
+@media (max-width: 480px) {
+  .brandline { gap: 8px; }
+  .home-link { letter-spacing: 0.06em; }
+  .home-sep { display: none; }
+  .brandline .wordmark { letter-spacing: 0.26em; }
+}
 .wordmark .dot {
   display: inline-block;
   width: 6px;
