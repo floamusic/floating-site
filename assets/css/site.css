@@ -137,7 +137,13 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; bo
   color: var(--ink-muted);
   border-bottom: 0;
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
 }
+/* The Fløa wordmark (Floa logo for site/final), raised so its letters' body, not the tall
+   f and l, centres on the FLOATING wordmark beside it. */
+.home-link .logo { display: block; height: 14px; width: auto; transform: translateY(-1.6px); }
 .home-link:hover { color: var(--accent); border-bottom: 0; }
 .home-sep { font: 11.5px/1 var(--mono); color: var(--ink-low); }
 @media (max-width: 480px) {
