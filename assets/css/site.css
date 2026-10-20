@@ -845,6 +845,10 @@ td code { white-space: nowrap; }
   .facts li, .facts li + li { padding: 18px 0; border-left: 0; border-bottom: 1px solid var(--line-soft); }
 }
 
+.panels.is-stacked { display: grid; }
+.panels.is-stacked > .panel { grid-area: 1 / 1; transition: opacity 0.2s ease, visibility 0s linear 0s; }
+.panels.is-stacked > .panel.is-off { opacity: 0; visibility: hidden; transition: opacity 0.2s ease, visibility 0s linear 0.2s; }
+
 /* ---------- what it does ---------- */
 #what h2, #get h2, #contact h2 { font-size: clamp(24px, 3.2vw, 34px); line-height: 1.15; }
 ol.flow { padding: 0; }

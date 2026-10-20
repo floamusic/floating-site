@@ -9,7 +9,7 @@
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-<link rel="stylesheet" href="assets/css/site.css?v=3">
+<link rel="stylesheet" href="assets/css/site.css?v=4">
 <meta property="og:type" content="website">
 <meta property="og:title" content="FLOATING by Fløa">
 <meta property="og:description" content="A recent moment, remembered differently. A capture-first memory instrument for AU and VST3 — now also as a cassette.">
@@ -44,9 +44,9 @@
        image never goes stale). A tall framing for phones, a wide one above. -->
   <section class="hero hero-cassette">
     <picture class="hero-art">
-      <source media="(max-width: 760px)" srcset="assets/img/cassette-hero-tall.jpg" width="1080" height="1350">
-      <img src="assets/img/cassette-hero-wide.jpg"
-           srcset="assets/img/cassette-hero-wide.jpg 1600w, assets/img/cassette-hero-wide@2x.jpg 2560w"
+      <source media="(max-width: 760px)" srcset="assets/img/cassette-hero-tall.jpg?v=2" width="1080" height="1350">
+      <img src="assets/img/cassette-hero-wide.jpg?v=2"
+           srcset="assets/img/cassette-hero-wide.jpg?v=2 1600w, assets/img/cassette-hero-wide@2x.jpg?v=2 2560w"
            sizes="100vw" width="1600" height="1000"
            alt="FLOATING as a cassette: a dark shell floating over a black floor, its paper label reading FLOATING, the two hubs and the Memory in the window, and the five knobs below — Memory Mode on Choir, Shape on GLOW.">
     </picture>
@@ -78,6 +78,7 @@
         <button type="button" class="switch-btn" role="tab" id="tab-video" aria-controls="panel-video" aria-selected="false" tabindex="-1">Watch it in action</button>
       </div>
 
+      <div class="panels">
       <div class="panel" id="panel-cassette" role="tabpanel" aria-labelledby="tab-cassette" tabindex="0">
         <figure>
           <img class="shot" src="assets/img/look-cassette.jpg"
@@ -91,7 +92,7 @@
         <figure>
           <img class="shot" src="assets/img/look-classic.jpg"
                srcset="assets/img/look-classic.jpg 1920w, assets/img/look-classic@2x.jpg 2880w"
-               sizes="(max-width: 1120px) 100vw, 1120px" width="1920" height="1200" loading="lazy"
+               sizes="(max-width: 1120px) 100vw, 1120px" width="1920" height="1200" decoding="async"
                alt="The classic look in the same state: the Memory across the full-width Horizon with its Focus, Capture held, FREE, Memory Mode on Choir, Shape at GLOW and Atmosphere at 55 percent.">
           <figcaption>Classic · the same Memory, the same settings</figcaption>
         </figure>
@@ -113,6 +114,7 @@
           </div>
           <figcaption>FLOATING in a session · 43 seconds · plays with sound</figcaption>
         </figure>
+      </div>
       </div>
 
       <ul class="facts">
@@ -234,13 +236,20 @@
   var badge = document.getElementById('play-badge');
   if (tabs.some(function (t) { return !t; })) return;
 
+  // With JS the panels sit stacked in one grid cell, all rendered: both looks are downloaded and decoded
+  // up front, so a switch is a 0.2 s cross-fade instead of a fetch (the classic image used to load on click).
+  var holder = panels[0].parentNode;
+  holder.classList.add('is-stacked');
+  panels.forEach(function (p, n) { p.hidden = false; p.classList.toggle('is-off', n !== 0); p.inert = n !== 0; });
+
   function select(i, focus) {
     tabs.forEach(function (t, n) {
       var on = n === i;
       t.classList.toggle('is-on', on);
       t.setAttribute('aria-selected', on ? 'true' : 'false');
       t.tabIndex = on ? 0 : -1;
-      panels[n].hidden = !on;
+      panels[n].classList.toggle('is-off', !on);
+      panels[n].inert = !on;
     });
     if (i !== 2 && video && !video.paused) video.pause();
     if (focus) tabs[i].focus();
