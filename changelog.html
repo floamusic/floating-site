@@ -39,7 +39,7 @@
       <p class="eyebrow">Changelog</p>
       <h1>What changed</h1>
       <p class="lede text">Every FLOATING release, newest first.</p>
-      <p class="small muted text">These are the release notes themselves, read from GitHub when the page loads — so this list cannot fall behind the downloads. If the request fails or JavaScript is off, the releases published up to <span data-latest-version>v0.4.0</span> are below.</p>
+      <p class="small muted text">These are the release notes themselves, read from GitHub when the page loads — so this list cannot fall behind the downloads. If the request fails or JavaScript is off, the releases published up to <span data-latest-version>v0.5.0</span> are below.</p>
     </div>
 
     <!-- STATIC FALLBACK. This is what a reader sees with no JavaScript, or when
@@ -47,6 +47,32 @@
          rather than a spinner. The script replaces it wholesale on success;
          when a release goes out, this block is what needs updating by hand. -->
     <div id="releases">
+
+      <article class="rel">
+        <header class="rel-head">
+          <h2>v0.5.0</h2>
+          <span class="rel-date">20 October 2026</span>
+        </header>
+        <div class="rel-body">
+          <p><strong>A second look: Cassette</strong></p>
+          <ul>
+            <li>The &bull;&bull;&bull; menu now offers <strong>Cassette look</strong>, and the whole panel becomes a cassette. Same controls, same sound, same project: only the face changes. The choice belongs to you, not to the project &mdash; it is kept on this computer for every session. <strong>Classic look</strong> takes you back, and Classic is exactly as it was.</li>
+            <li><strong>The Memory lives in the cassette&rsquo;s window.</strong> Press it and the tape pulls out across the label: keep the button down and drag, and you set Focus along the long strip in one motion. Move away or press Esc and it winds back; Enter or Space opens it from the keyboard.</li>
+            <li><strong>The cassette shows what plays.</strong> The hubs turn with the tape &mdash; forward, back, faster, slower, and they stop in FREEZE. Side A is FREE and side B is SYNC: the face turns over with the same curtain as the classic panel. The label reads CAPTURED and FOCUS, and while a Memory is held it notes the mode and Shape by hand. Atmosphere&rsquo;s weather drifts in the trapezoid at the bottom.</li>
+            <li>The tour runs in the Classic look; replaying it from the cassette switches back first.</li>
+          </ul>
+          <p><strong>Fixed</strong></p>
+          <ul>
+            <li>In SYNC, a tempo change made while the transport is stopped now reads OFF GRID straight away. It used to read SYNCED until you pressed play.</li>
+          </ul>
+          <p><strong>Changed</strong></p>
+          <ul>
+            <li>The knobs no longer show a box repeating their own name when you hover them.</li>
+            <li>Check for updates now tells the update page whether you are on macOS or Windows, so it can offer the right download. It is still only a link: the plug-in makes no network call.</li>
+            <li>The manual is four pages now: how it works, every control, Sync &middot; Space &middot; Print with the Cassette look, and a one-page reference.</li>
+          </ul>
+        </div>
+      </article>
 
       <article class="rel">
         <header class="rel-head">
@@ -152,7 +178,7 @@
 
 <footer>
   <div class="wrap">
-    <span class="mono">FLOATING · by Fløa · <span data-latest-version>v0.4.0</span></span>
+    <span class="mono">FLOATING · by Fløa · <span data-latest-version>v0.5.0</span></span>
     <span class="mono"><a href="index.html">Home</a> · <a href="updates.html">Updates</a></span>
   </div>
 </footer>
