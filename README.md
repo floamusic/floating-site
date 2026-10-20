@@ -47,7 +47,7 @@ The hero has two tabs: the interface still (default) and the demo video. The
 video **never autoplays** — it carries real audio as part of the demonstration —
 and is `preload="none"`, so it costs zero bytes until someone presses play. The
 still doubles as the video's `poster`, so switching tabs shows the same frame
-rather than a black box.
+rather than a black box. The poster is set only once the page has finished loading.
 
 `assets/video/floating-promo-v3-captions.mp4` is a web transcode of the delivery
 master (`video/floating-promo-v3-captions.mp4` in the product repo): same
@@ -97,7 +97,22 @@ elsewhere; nothing here is generated from it automatically.
   `FloatingSmokeTest --site-shots <dir> 3` (product repo), so the home page's Cassette | Classic switch changes
   only the face. Choir at GLOW, Atmosphere 55, FREE; the classic footer is neutralised and the cassette label's
   version box is covered, so neither carries a version. Resized with `sips -Z 1920` (q86) and full 2880 (q80).
-- `assets/img/cassette-hero-{wide[@2x],tall}.jpg`: Blender stills of the cassette wearing that same face
-  (`docs/cassette-001/teaser/tools/teaser_scene.py --shot hero|hero-tall --face … --knobs 1,0.5,0,0.7,1`, 160
-  samples). The wide one keeps the cassette in the right half so the hero type sits on the dark floor; the tall
-  one is the phone's first screen.
+- `assets/img/look-{cassette,classic}[@2x].avif`: the same two shots as AVIF (Pillow, quality 78, 4:4:4; at 60 the
+  plastic's grain smooths away), 5–8 times lighter than the JPEGs, which stay as the fallback.
+- `assets/img/cassette-hero-wide-{1600,2560,3840}.{avif,jpg}` and `cassette-hero-tall-{1080,1620}.{avif,jpg}`:
+  Blender stills of the cassette wearing that same face (`docs/cassette-001/teaser/tools/teaser_scene.py --shot
+  hero|hero-tall --face … --knobs 1,0.5,0,0.7,1`, rendered at 3840×2400 / 1620×2025, 512 samples, focus on the face,
+  f/16). The wide one keeps the cassette in the right half so the hero type sits on the dark floor; the tall one is
+  the phone's first screen. The hero is full-bleed (`sizes="100vw"`), so a 1440-wide window on a 2x screen asks
+  for 2880 px: hence the 3840.
+
+### Loading
+
+- The first screen needs only the stylesheet, the font (WOFF2, 16 KB; the TTF stays as a fallback) and the hero
+  (`fetchpriority="high"`). Everything below it is `loading="lazy"`. The classic look and the film's poster are
+  fetched once the page has finished loading (the switch script), so switching is still instant.
+- From some networks GitHub Pages' addresses (185.199.108–111.153) connect only now and then while jsDelivr and
+  github.com answer at once. The images and the film are therefore served from jsDelivr's copy of this repo,
+  pinned to a commit: `https://cdn.jsdelivr.net/gh/floamusic/floating-site@<sha>/assets/…`. ⚠ A new or changed
+  image must be pushed first; then point the page at that commit. If jsDelivr fails, a small script in the
+  `<head>` takes the same file from the site itself.

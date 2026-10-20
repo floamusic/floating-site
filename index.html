@@ -9,11 +9,12 @@
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-<link rel="stylesheet" href="assets/css/site.css?v=4">
+<link rel="stylesheet" href="assets/css/site.css?v=5">
+<link rel="preload" href="assets/fonts/ShareTechMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <meta property="og:type" content="website">
 <meta property="og:title" content="FLOATING by Fløa">
 <meta property="og:description" content="A recent moment, remembered differently. A capture-first memory instrument for AU and VST3 — now also as a cassette.">
-<meta property="og:image" content="assets/img/cassette-hero-wide.jpg">
+<meta property="og:image" content="https://floamusic.github.io/floating-site/assets/img/cassette-hero-wide-1600.jpg">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
@@ -44,10 +45,15 @@
        image never goes stale). A tall framing for phones, a wide one above. -->
   <section class="hero hero-cassette">
     <picture class="hero-art">
-      <source media="(max-width: 760px)" srcset="assets/img/cassette-hero-tall.jpg?v=2" width="1080" height="1350">
-      <img src="assets/img/cassette-hero-wide.jpg?v=2"
-           srcset="assets/img/cassette-hero-wide.jpg?v=2 1600w, assets/img/cassette-hero-wide@2x.jpg?v=2 2560w"
-           sizes="100vw" width="1600" height="1000"
+      <source media="(max-width: 760px)" type="image/avif" sizes="100vw" width="1080" height="1350"
+              srcset="assets/img/cassette-hero-tall-1080.avif 1080w, assets/img/cassette-hero-tall-1620.avif 1620w">
+      <source media="(max-width: 760px)" sizes="100vw" width="1080" height="1350"
+              srcset="assets/img/cassette-hero-tall-1080.jpg 1080w, assets/img/cassette-hero-tall-1620.jpg 1620w">
+      <source type="image/avif" sizes="100vw"
+              srcset="assets/img/cassette-hero-wide-1600.avif 1600w, assets/img/cassette-hero-wide-2560.avif 2560w, assets/img/cassette-hero-wide-3840.avif 3840w">
+      <img src="assets/img/cassette-hero-wide-1600.jpg"
+           srcset="assets/img/cassette-hero-wide-1600.jpg 1600w, assets/img/cassette-hero-wide-2560.jpg 2560w, assets/img/cassette-hero-wide-3840.jpg 3840w"
+           sizes="100vw" width="1600" height="1000" fetchpriority="high"
            alt="FLOATING as a cassette: a dark shell floating over a black floor, its paper label reading FLOATING, the two hubs and the Memory in the window, and the five knobs below — Memory Mode on Choir, Shape on GLOW.">
     </picture>
     <div class="wrap hero-copy">
@@ -81,19 +87,27 @@
       <div class="panels">
       <div class="panel" id="panel-cassette" role="tabpanel" aria-labelledby="tab-cassette" tabindex="0">
         <figure>
-          <img class="shot" src="assets/img/look-cassette.jpg"
+          <picture>
+            <source type="image/avif" sizes="(max-width: 1120px) 100vw, 1120px"
+                    srcset="assets/img/look-cassette.avif 1920w, assets/img/look-cassette@2x.avif 2880w">
+          <img class="shot" id="cassette-shot" src="assets/img/look-cassette.jpg"
                srcset="assets/img/look-cassette.jpg 1920w, assets/img/look-cassette@2x.jpg 2880w"
-               sizes="(max-width: 1120px) 100vw, 1120px" width="1920" height="1200"
+               sizes="(max-width: 1120px) 100vw, 1120px" width="1920" height="1200" loading="lazy" decoding="async"
                alt="The cassette look: a paper label with the Memory in the window between two hubs, the title written by hand — choir, glow — Capture held, side A FREE, the five knobs on the body and Atmosphere at 55 percent in the trapezoid at the bottom.">
+          </picture>
           <figcaption>Cassette · Held Memory · Choir at GLOW · side A, FREE</figcaption>
         </figure>
       </div>
       <div class="panel" id="panel-classic" role="tabpanel" aria-labelledby="tab-classic" tabindex="0" hidden>
         <figure>
-          <img class="shot" src="assets/img/look-classic.jpg"
+          <picture>
+            <source type="image/avif" sizes="(max-width: 1120px) 100vw, 1120px"
+                    srcset="assets/img/look-classic.avif 1920w, assets/img/look-classic@2x.avif 2880w">
+          <img class="shot" id="classic-shot" src="assets/img/look-classic.jpg"
                srcset="assets/img/look-classic.jpg 1920w, assets/img/look-classic@2x.jpg 2880w"
-               sizes="(max-width: 1120px) 100vw, 1120px" width="1920" height="1200" decoding="async"
+               sizes="(max-width: 1120px) 100vw, 1120px" width="1920" height="1200" loading="lazy" decoding="async"
                alt="The classic look in the same state: the Memory across the full-width Horizon with its Focus, Capture held, FREE, Memory Mode on Choir, Shape at GLOW and Atmosphere at 55 percent.">
+          </picture>
           <figcaption>Classic · the same Memory, the same settings</figcaption>
         </figure>
       </div>
@@ -101,7 +115,7 @@
         <figure>
           <div class="video-wrap">
             <video class="shot" id="promo" controls playsinline preload="none"
-                   width="1920" height="1080" poster="assets/img/hero-memory.jpg">
+                   width="1920" height="1080" data-poster="assets/img/hero-memory.jpg">
               <source src="assets/video/floating-promo-v3-captions.mp4" type="video/mp4">
               <p>Your browser can’t play this video.
                  <a href="assets/video/floating-promo-v3-captions.mp4">Download it instead</a>.</p>
@@ -236,11 +250,25 @@
   var badge = document.getElementById('play-badge');
   if (tabs.some(function (t) { return !t; })) return;
 
-  // With JS the panels sit stacked in one grid cell, all rendered: both looks are downloaded and decoded
-  // up front, so a switch is a 0.2 s cross-fade instead of a fetch (the classic image used to load on click).
+  // With JS the panels sit stacked in one grid cell, all rendered, so a switch is a 0.2 s cross-fade instead
+  // of a fetch (the classic image used to load on click). What the first screen doesn't show waits for the page
+  // to finish loading: then the classic look and the film's poster are fetched, before anyone switches.
   var holder = panels[0].parentNode;
   holder.classList.add('is-stacked');
   panels.forEach(function (p, n) { p.hidden = false; p.classList.toggle('is-off', n !== 0); p.inert = n !== 0; });
+  var looks = ['cassette-shot', 'classic-shot'].map(function (id) { return document.getElementById(id); });
+  function fetchRest() {
+    looks.forEach(function (img) { if (img) img.loading = 'eager'; });   // the cassette first
+    if (video && !video.poster && video.dataset.poster) {
+      // a poster that fails raises no error on the video: try it as an image first (siteLocal: the CDN fallback)
+      var url = video.dataset.poster, probe = new Image();
+      probe.onload = function () { video.poster = url; };
+      probe.onerror = function () { if (window.siteLocal) video.poster = window.siteLocal(url); };
+      probe.src = url;
+      video.dataset.poster = '';
+    }
+  }
+  if (document.readyState === 'complete') fetchRest(); else window.addEventListener('load', fetchRest);
 
   function select(i, focus) {
     tabs.forEach(function (t, n) {
@@ -251,6 +279,7 @@
       panels[n].classList.toggle('is-off', !on);
       panels[n].inert = !on;
     });
+    if (i !== 0) fetchRest();
     if (i !== 2 && video && !video.paused) video.pause();
     if (focus) tabs[i].focus();
   }
