@@ -160,7 +160,6 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; bo
   border-radius: 50%;
   background: var(--accent);
   vertical-align: 0.15em;
-  box-shadow: 0 0 10px rgba(255, 90, 44, 0.7);
 }
 .topnav {
   display: flex;
@@ -393,7 +392,7 @@ figure { margin: 0; }
 figcaption {
   margin-top: 12px;
   color: var(--ink-muted);
-  font: 10.5px/1.5 var(--mono);
+  font: 11.5px/1.5 var(--mono);
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -483,7 +482,7 @@ figcaption {
   margin-bottom: 8px;
 }
 .dl .fmt { color: var(--ink-muted); font-size: 14px; margin-bottom: 4px; }
-.dl .size { color: var(--ink-muted); font: 11px/1.5 var(--mono); letter-spacing: 0.08em; margin-bottom: 22px; }
+.dl .size { color: var(--ink-muted); font: 12px/1.5 var(--mono); letter-spacing: 0.08em; margin-bottom: 22px; }
 .dl .spacer { flex: 1; }
 
 .btn {
@@ -584,7 +583,7 @@ footer {
   color: var(--ink-muted);
 }
 footer .wrap { display: flex; flex-wrap: wrap; gap: 14px 28px; justify-content: space-between; align-items: baseline; }
-footer .mono { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; }
+footer .mono { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; }
 footer a { color: var(--ink-muted); border-bottom-color: var(--line); }
 footer a:hover { color: var(--accent); }
 
@@ -764,3 +763,129 @@ td code { white-space: nowrap; }
 .rel-body > *:first-child { margin-top: 0; }
 .rel-body > *:last-child { margin-bottom: 0; }
 .rel-body h3 { margin-top: 30px; }
+
+
+/* ==========================================================================
+   v0.5.0 refresh — the cassette leads. One first screen (the Blender cassette
+   wearing the plug-in's own face), a Cassette | Classic switch on one held
+   state, and a shorter page: no section numbers, the story in two lines,
+   support and contact side by side.
+   ========================================================================== */
+
+/* ---------- hero: the cassette in the dark ---------- */
+.hero-cassette {
+  padding: 0;
+  min-height: min(92vh, 980px);
+  display: flex;
+  align-items: flex-start;
+  isolation: isolate;
+}
+.hero-cassette::before { display: none; }
+.hero-art,
+.hero-art img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+.hero-art img {
+  object-fit: cover;
+  object-position: 50% 55%;
+  /* the render's floor is near-black; fade it into the page so the section has no edge */
+  -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+          mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+}
+.hero-copy { padding-top: clamp(56px, 10vh, 120px); padding-bottom: 64px; }
+.hero-cassette .hero-copy > * { max-width: min(40%, 480px); }
+.hero-cassette .hero-mark { border-bottom: 0; padding-bottom: 0; margin-bottom: clamp(20px, 3vw, 30px); }
+.hero-cassette .hero-mark .by { font-size: 12px; }
+.hero-cassette h1 { font-size: clamp(30px, 3.7vw, 52px); line-height: 1.1; text-wrap: balance; }
+.hero-cassette .sub { max-width: 44ch; color: #c9c4bc; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 26px; }
+.hero-cta .btn { width: auto; min-width: 0; padding-left: 24px; padding-right: 24px; }
+.hero-new {
+  display: block;
+  margin: 0;
+  font: 12px/1.4 var(--mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.hero-new .pip { display: inline-block; width: 7px; height: 7px; margin-right: 10px; vertical-align: 1px; border-radius: 50%; background: var(--accent); }
+@media (max-width: 760px) {
+  .hero-cassette { min-height: 0; display: block; padding-bottom: 0; }
+  .hero-art { position: relative; display: block; height: auto; }
+  .hero-art, .hero-art img { position: relative; inset: auto; height: auto; z-index: 0; }
+  .hero-art img { aspect-ratio: 5 / 4; object-fit: cover; object-position: 50% 32%; }
+  .hero-copy { padding-top: 40px; padding-bottom: 0; position: relative; z-index: 1; }
+  .hero-cassette .hero-copy > * { max-width: none; }
+}
+
+/* ---------- two looks ---------- */
+.looks-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 12px 48px; align-items: end; margin-bottom: clamp(26px, 3.4vw, 36px); }
+.looks-head h2 { margin: 0; font-size: clamp(26px, 3.6vw, 40px); line-height: 1.1; text-wrap: balance; }
+.looks-head p { margin: 0; color: var(--ink-muted); max-width: 52ch; }
+@media (max-width: 760px) { .looks-head { grid-template-columns: 1fr; } }
+
+.facts {
+  list-style: none;
+  margin: clamp(32px, 4vw, 48px) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+}
+.facts li { padding: 22px 28px 0 0; }
+.facts li + li { padding-left: 28px; border-left: 1px solid var(--line-soft); }
+.facts h3 { font: 400 14px/1.35 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); margin-bottom: 8px; }
+.facts p { font-size: 15px; color: var(--ink-muted); margin: 0; }
+@media (max-width: 760px) {
+  .facts { grid-template-columns: 1fr; }
+  .facts li, .facts li + li { padding: 18px 0; border-left: 0; border-bottom: 1px solid var(--line-soft); }
+}
+
+/* ---------- what it does ---------- */
+#what h2, #get h2, #contact h2 { font-size: clamp(24px, 3.2vw, 34px); line-height: 1.15; }
+ol.flow { padding: 0; }
+.modes {
+  margin: clamp(30px, 4vw, 44px) 0 18px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+.modes > div { padding: 20px 26px 4px 0; }
+.modes > div + div { padding-left: 26px; border-left: 1px solid var(--line-soft); }
+.modes dt { font: 400 20px/1.2 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); margin-bottom: 10px; }
+.modes dd { margin: 0 0 10px; color: #d7d2ca; font-size: 15px; }
+.modes dd.ladder { font: 12px/1.5 var(--mono); letter-spacing: 0.1em; color: var(--accent); }
+@media (max-width: 760px) {
+  .modes { grid-template-columns: 1fr; }
+  .modes > div, .modes > div + div { padding: 18px 0 8px; border-left: 0; border-bottom: 1px solid var(--line-soft); }
+}
+.more { margin-top: 14px; max-width: 70ch; }
+
+/* ---------- story: two lines, signed ---------- */
+#story { padding: clamp(48px, 7vw, 88px) 0; }
+.story { margin: 0 auto; max-width: 760px; }
+.story blockquote { margin: 0; }
+.story blockquote p {
+  font-size: clamp(18px, 2.2vw, 22px);
+  line-height: 1.55;
+  color: #e2ddd5;
+  text-wrap: pretty;
+}
+.story figcaption { margin-top: 18px; font-size: 13px; letter-spacing: 0.12em; text-transform: none; }
+
+/* ---------- download ---------- */
+.fineprint { margin-top: 22px; max-width: 76ch; font-size: 14px; color: var(--ink-muted); }
+
+/* ---------- contact + support ---------- */
+.contact-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 64px; }
+.contact-grid p { color: var(--ink-muted); max-width: 46ch; }
+.contact-grid .link-rows { margin-top: 22px; }
+@media (max-width: 760px) { .contact-grid { grid-template-columns: 1fr; } }
+
+/* ---------- browser surfaces ---------- */
+::selection { background: rgba(255, 90, 44, 0.32); color: #fff; }

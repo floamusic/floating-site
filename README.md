@@ -90,3 +90,14 @@ number goes stale in silence.
 
 This repo holds only the public site. The FLOATING source is private and lives
 elsewhere; nothing here is generated from it automatically.
+
+### v0.5.0 refresh — the cassette
+
+- `assets/img/look-{cassette,classic}[@2x].jpg`: one held state painted in both looks by
+  `FloatingSmokeTest --site-shots <dir> 3` (product repo), so the home page's Cassette | Classic switch changes
+  only the face. Choir at GLOW, Atmosphere 55, FREE; the classic footer is neutralised and the cassette label's
+  version box is covered, so neither carries a version. Resized with `sips -Z 1920` (q86) and full 2880 (q80).
+- `assets/img/cassette-hero-{wide[@2x],tall}.jpg`: Blender stills of the cassette wearing that same face
+  (`docs/cassette-001/teaser/tools/teaser_scene.py --shot hero|hero-tall --face … --knobs 1,0.5,0,0.7,1`, 160
+  samples). The wide one keeps the cassette in the right half so the hero type sits on the dark floor; the tall
+  one is the phone's first screen.

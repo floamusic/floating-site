@@ -4,21 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FLOATING by Fløa — a recent moment, remembered differently</title>
-<meta name="description" content="FLOATING is a capture-first memory instrument. Capture a recent moment, shape how it is remembered, place it into atmosphere. AU and VST3 beta for macOS and Windows.">
+<meta name="description" content="FLOATING is a capture-first memory instrument. Capture a recent moment, shape how it is remembered, place it into atmosphere. Now with a second look: the whole plug-in as a cassette. AU and VST3 beta for macOS and Windows.">
 <meta name="theme-color" content="#050506">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-<link rel="stylesheet" href="assets/css/site.css?v=2">
+<link rel="stylesheet" href="assets/css/site.css?v=3">
 <meta property="og:type" content="website">
 <meta property="og:title" content="FLOATING by Fløa">
-<meta property="og:description" content="A recent moment, remembered differently. A capture-first memory instrument for AU and VST3.">
-<meta property="og:image" content="assets/img/hero-memory.jpg">
+<meta property="og:description" content="A recent moment, remembered differently. A capture-first memory instrument for AU and VST3 — now also as a cassette.">
+<meta property="og:image" content="assets/img/cassette-hero-wide.jpg">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
 
-<a class="skip" href="#what">Skip to content</a>
+<a class="skip" href="#looks">Skip to content</a>
 
 <header class="topbar">
   <div class="wrap">
@@ -28,10 +28,9 @@
       <a class="wordmark" href="#top">FLOATING<span class="dot" aria-hidden="true"></span></a>
     </div>
     <nav class="topnav" aria-label="Sections">
-      <a class="opt-sm" href="#what">What it does</a>
-      <a class="opt" href="#story">Story</a>
-      <a href="#beta">Get the beta</a>
-      <a class="opt" href="#support">Support</a>
+      <a class="opt-sm" href="#looks">Two looks</a>
+      <a class="opt" href="#what">What it does</a>
+      <a href="#get">Download</a>
       <a class="opt" href="#contact">Contact</a>
     </nav>
   </div>
@@ -39,133 +38,142 @@
 
 <main id="top">
 
-  <!-- ============================================================ HERO -->
-  <section class="hero">
+  <!-- ============================================================ HERO
+       The cassette itself: a Blender render wearing the plug-in's own face
+       (the cassette look as the plug-in paints it, version left off so the
+       image never goes stale). A tall framing for phones, a wide one above. -->
+  <section class="hero hero-cassette">
+    <picture class="hero-art">
+      <source media="(max-width: 760px)" srcset="assets/img/cassette-hero-tall.jpg" width="1080" height="1350">
+      <img src="assets/img/cassette-hero-wide.jpg"
+           srcset="assets/img/cassette-hero-wide.jpg 1600w, assets/img/cassette-hero-wide@2x.jpg 2560w"
+           sizes="100vw" width="1600" height="1000"
+           alt="FLOATING as a cassette: a dark shell floating over a black floor, its paper label reading FLOATING, the two hubs and the Memory in the window, and the five knobs below — Memory Mode on Choir, Shape on GLOW.">
+    </picture>
+    <div class="wrap hero-copy">
+      <p class="hero-mark">FLOATING<span class="by">Memory instrument · by Fløa</span></p>
+      <h1>A recent moment, remembered differently.</h1>
+      <p class="sub">Capture what you just played, shape how it is remembered, place it into atmosphere, print it back. Audio Unit and VST3, for macOS and Windows.</p>
+      <div class="hero-cta">
+        <a class="btn" href="#get">Download the beta</a>
+        <a class="btn ghost" href="#looks">See both looks</a>
+      </div>
+      <p class="hero-new"><span class="pip" aria-hidden="true"></span>New in <span data-latest-version>v0.5.0</span> — the whole plug-in as a cassette</p>
+    </div>
+  </section>
+
+  <!-- ======================================================= TWO LOOKS
+       One held state painted in both looks (FloatingSmokeTest --site-shots),
+       so the switch changes only the face. The film keeps its own tab. -->
+  <section id="looks">
     <div class="wrap">
-      <p class="hero-mark">FLOATING<span class="by">MEMORY INSTRUMENT · BY FLØA</span></p>
-      <h1>A recent moment,<br>remembered differently.</h1>
-      <p class="sub">Capture a recent moment, shape how it is remembered, place it into atmosphere. Audio Unit and VST3, for macOS and Windows.</p>
-      <div class="hero-meta">
-        <span class="tag hot">Beta · <span data-latest-version>v0.5.0</span></span>
-        <span class="tag">AU · VST3</span>
-        <span class="tag">macOS · Windows</span>
+      <div class="looks-head">
+        <h2>Two looks, one instrument.</h2>
+        <p>Same controls, same sound, same project — only the face changes. Pick it in the ••• menu; it stays on your computer, and Classic stays exactly as it was.</p>
       </div>
-      <!-- HERO MEDIA — two views of the same thing. The still is the default so
-           the page paints exactly as it did before the video existed; the video
-           carries real audio as part of the demonstration, so it never
-           autoplays and is preload="none" (zero bytes until someone asks for
-           it). The still doubles as the video's poster, so switching tabs shows
-           the same frame rather than a black box. -->
-      <div class="hero-media">
-        <div class="switch" role="tablist" aria-label="Choose how to view FLOATING">
-          <button type="button" class="switch-btn is-on" role="tab"
-                  id="tab-still" aria-controls="panel-still" aria-selected="true">Interface</button>
-          <button type="button" class="switch-btn" role="tab"
-                  id="tab-video" aria-controls="panel-video" aria-selected="false" tabindex="-1">Watch it in action</button>
-        </div>
 
-        <div class="panel" id="panel-still" role="tabpanel" aria-labelledby="tab-still" tabindex="0">
-          <figure>
-            <img class="shot"
-                 src="assets/img/hero-memory.jpg"
-                 srcset="assets/img/hero-memory.jpg 1920w, assets/img/hero-memory@2x.jpg 2560w"
-                 sizes="(max-width: 1120px) 100vw, 1120px"
-                 width="1920" height="1200"
-                 alt="The FLOATING interface caught mid-switch from FREE to SYNC: the left of the panel still orange, the right already blue. A held Memory in Choir at GLOW, Rate reading 4/3X and Window 1 BAR, the switch reading ON GRID, and a remembered Atmosphere movement.">
-            <figcaption>Held Memory · Choir · switching from FREE to SYNC</figcaption>
-          </figure>
-        </div>
-
-        <div class="panel" id="panel-video" role="tabpanel" aria-labelledby="tab-video" tabindex="0" hidden>
-          <figure>
-            <div class="video-wrap">
-              <video class="shot" id="promo" controls playsinline preload="none"
-                     width="1920" height="1080"
-                     poster="assets/img/hero-memory.jpg">
-                <source src="assets/video/floating-promo-v3-captions.mp4" type="video/mp4">
-                <p>Your browser can’t play this video.
-                   <a href="assets/video/floating-promo-v3-captions.mp4">Download it instead</a>.</p>
-              </video>
-              <button type="button" class="play-badge" id="play-badge"
-                      aria-label="Play the FLOATING demo video, 43 seconds, with sound">
-                <span class="tri" aria-hidden="true"></span>
-                <span class="lbl">Play · 43s · sound on</span>
-              </button>
-            </div>
-            <figcaption>FLOATING in a session · 43 seconds · plays with sound</figcaption>
-          </figure>
-        </div>
+      <div class="switch" role="tablist" aria-label="Choose a view">
+        <button type="button" class="switch-btn is-on" role="tab" id="tab-cassette" aria-controls="panel-cassette" aria-selected="true">Cassette</button>
+        <button type="button" class="switch-btn" role="tab" id="tab-classic" aria-controls="panel-classic" aria-selected="false" tabindex="-1">Classic</button>
+        <button type="button" class="switch-btn" role="tab" id="tab-video" aria-controls="panel-video" aria-selected="false" tabindex="-1">Watch it in action</button>
       </div>
+
+      <div class="panel" id="panel-cassette" role="tabpanel" aria-labelledby="tab-cassette" tabindex="0">
+        <figure>
+          <img class="shot" src="assets/img/look-cassette.jpg"
+               srcset="assets/img/look-cassette.jpg 1920w, assets/img/look-cassette@2x.jpg 2880w"
+               sizes="(max-width: 1120px) 100vw, 1120px" width="1920" height="1200"
+               alt="The cassette look: a paper label with the Memory in the window between two hubs, the title written by hand — choir, glow — Capture held, side A FREE, the five knobs on the body and Atmosphere at 55 percent in the trapezoid at the bottom.">
+          <figcaption>Cassette · Held Memory · Choir at GLOW · side A, FREE</figcaption>
+        </figure>
+      </div>
+      <div class="panel" id="panel-classic" role="tabpanel" aria-labelledby="tab-classic" tabindex="0" hidden>
+        <figure>
+          <img class="shot" src="assets/img/look-classic.jpg"
+               srcset="assets/img/look-classic.jpg 1920w, assets/img/look-classic@2x.jpg 2880w"
+               sizes="(max-width: 1120px) 100vw, 1120px" width="1920" height="1200" loading="lazy"
+               alt="The classic look in the same state: the Memory across the full-width Horizon with its Focus, Capture held, FREE, Memory Mode on Choir, Shape at GLOW and Atmosphere at 55 percent.">
+          <figcaption>Classic · the same Memory, the same settings</figcaption>
+        </figure>
+      </div>
+      <div class="panel" id="panel-video" role="tabpanel" aria-labelledby="tab-video" tabindex="0" hidden>
+        <figure>
+          <div class="video-wrap">
+            <video class="shot" id="promo" controls playsinline preload="none"
+                   width="1920" height="1080" poster="assets/img/hero-memory.jpg">
+              <source src="assets/video/floating-promo-v3-captions.mp4" type="video/mp4">
+              <p>Your browser can’t play this video.
+                 <a href="assets/video/floating-promo-v3-captions.mp4">Download it instead</a>.</p>
+            </video>
+            <button type="button" class="play-badge" id="play-badge"
+                    aria-label="Play the FLOATING demo video, 43 seconds, with sound">
+              <span class="tri" aria-hidden="true"></span>
+              <span class="lbl">Play · 43s · sound on</span>
+            </button>
+          </div>
+          <figcaption>FLOATING in a session · 43 seconds · plays with sound</figcaption>
+        </figure>
+      </div>
+
+      <ul class="facts">
+        <li><h3>The hubs turn with the tape</h3><p>Forward, back, faster, slower — and they stand still in FREEZE.</p></li>
+        <li><h3>The Memory lives in the window</h3><p>Press it and the tape pulls out across the label; drag along it to set Focus.</p></li>
+        <li><h3>Side A, side B</h3><p>A is FREE, B is SYNC. The face turns over when you switch.</p></li>
+      </ul>
     </div>
   </section>
 
   <!-- ==================================================== WHAT IT DOES -->
   <section id="what">
     <div class="wrap">
-      <p class="eyebrow"><span class="num">01</span>What it does</p>
+      <h2>Catch it after it happens.</h2>
       <div class="text">
-        <p class="lede">FLOATING listens to what you just played, and turns it into Memory — it holds the phrase while you decide what to do with it.</p>
-        <p>Capture — Tape/Stretch/Choir change how it sounds — Atmosphere places it in space. The original stays untouched.</p>
+        <p class="lede">FLOATING is always listening. When something good goes by, press Capture: the last few seconds become a Memory you can reshape, place in space and print back into your session. The original stays untouched.</p>
       </div>
 
-      <ul class="flow">
+      <ol class="flow">
         <li>Recent audio</li><li class="arrow" aria-hidden="true">→</li>
         <li class="on">Capture</li><li class="arrow" aria-hidden="true">→</li>
         <li class="on">Memory</li><li class="arrow" aria-hidden="true">→</li>
         <li>Atmosphere</li><li class="arrow" aria-hidden="true">→</li>
         <li>Print</li>
-      </ul>
+      </ol>
 
-      <h4 class="modes-head">Three ways to remember it</h4>
-      <div class="grid c3">
-        <div class="card">
-          <h3>Tape</h3>
-          <p>A transport-shaped Memory. Shape moves through reverse, slow, normal and faster local movement, while the phrase keeps its identity.</p>
-          <p class="ladder">REV · SLOW · NORMAL · FAST</p>
-        </div>
-        <div class="card">
-          <h3>Stretch</h3>
-          <p>A sliced, time-shaped Memory that runs from reverse through suspended motion into forward movement. It can hold a moment still, or send the phrase travelling.</p>
-          <p class="ladder">REV · FREEZE · FORWARD</p>
-        </div>
-        <div class="card">
-          <h3>Choir</h3>
-          <p>A time-locked harmonic companion around the held Memory. The original anchor stays present as Shape swings from the octave below toward the octave above.</p>
-          <p class="ladder">BODY · GLOW</p>
-        </div>
-      </div>
+      <dl class="modes">
+        <div><dt>Tape</dt><dd>The phrase as a tape: backwards, slower, faster.</dd><dd class="ladder">REV · SLOW · 1X · FAST · FAST+</dd></div>
+        <div><dt>Stretch</dt><dd>Slices moving back, standing still or pushing forward.</dd><dd class="ladder">REV · FREEZE · FWD · DRIVE</dd></div>
+        <div><dt>Choir</dt><dd>Octaves around the Memory, moving in time with it.</dd><dd class="ladder">BODY · BODY+ · GLOW</dd></div>
+      </dl>
+      <p class="more small muted">FREE plays out of time; SYNC captures a musical division and keeps every control on the bar. The <a href="https://github.com/floamusic/floating-site/releases/latest/download/FLOATING-Manual-latest.pdf">four-page manual</a> has the rest.</p>
     </div>
   </section>
 
   <!-- ========================================================== STORY -->
   <section id="story">
     <div class="wrap">
-      <p class="eyebrow"><span class="num">02</span>The story</p>
-      <div class="text">
-        <p class="lede">For a long time this was a different plugin entirely. A delay. Then a texture engine. I kept building toward something, then finding out it wasn’t quite the thing.</p>
-        <p>At some point I stopped trying to design a feature list and started asking a simpler question: what actually happens right after you play something you like? You lose it. You reach for undo, or you just remember it wrong.</p>
-        <p>FLOATING came from trying to hold onto that moment honestly — not clean it up, not perfect it, just keep it long enough to do something with it.</p>
-        <p>Almost everything in here got rebuilt at least once. Some of it more than that. There were versions that measured better and sounded worse, and I threw those out even when the numbers said keep them. If something didn’t feel true when I actually listened to it, it didn’t ship — no matter how long it took to get there.</p>
-        <p>This is where it landed. Beta, still rough at the edges, still mine to keep shaping — but it’s the first version I’ve actually wanted to hand to someone else.</p>
-        <p class="signoff">— Fløa</p>
-      </div>
+      <figure class="story">
+        <blockquote>
+          <p>For a long time this was a different plugin — a delay, then a texture engine. Then I asked a simpler question: what happens right after you play something you like? You lose it. FLOATING is my attempt to hold onto that moment honestly, long enough to do something with it.</p>
+          <p>The cassette comes from the same place. As a kid I would stare at a tape and imagine the best moments of the songs living inside it.</p>
+        </blockquote>
+        <figcaption>— Fløa</figcaption>
+      </figure>
     </div>
   </section>
 
-  <!-- ======================================================= GET BETA -->
-  <section id="beta">
+  <!-- ======================================================= DOWNLOAD -->
+  <section id="get">
     <div class="wrap">
-      <p class="eyebrow"><span class="num">03</span>Get the beta</p>
       <div class="text">
         <h2>Download FLOATING <span data-latest-version>v0.5.0</span></h2>
-        <p>Free, no account, no key. Download it and it works. The installer and the plug-in are unsigned, so your system will ask once whether you meant to open them — the install guides walk through exactly that.</p>
+        <p>Free, no account, no key. It is a beta and it is unsigned, so your system asks once whether you meant to open it — the install guides walk through exactly that, and list what is known to be missing on each platform.</p>
       </div>
 
       <div class="dl-grid">
         <div class="dl">
           <p class="plat">macOS</p>
-          <p class="fmt">Installer package · Audio Unit + VST3</p>
-          <p class="size">.pkg · 3.4 MB · Apple Silicon (M1 or later) · macOS 11+</p>
+          <p class="fmt">Installer · Audio Unit + VST3</p>
+          <p class="size">.pkg · Apple Silicon (M1 or later) · macOS 11+</p>
           <div class="spacer"></div>
           <a class="btn" href="https://github.com/floamusic/floating-site/releases/latest/download/FLOATING-macOS-latest-beta.pkg">Download for macOS</a>
           <div class="dl-links">
@@ -176,7 +184,7 @@
         <div class="dl">
           <p class="plat">Windows</p>
           <p class="fmt">Zip archive · VST3</p>
-          <p class="size">.zip · 2.7 MB · Windows x64</p>
+          <p class="size">.zip · Windows x64</p>
           <div class="spacer"></div>
           <a class="btn" href="https://github.com/floamusic/floating-site/releases/latest/download/FLOATING-Windows-latest-beta.zip">Download for Windows</a>
           <div class="dl-links">
@@ -186,52 +194,27 @@
         </div>
       </div>
 
-      <div class="warning">
-        <h4>This is a beta</h4>
-        <p>This is a pre-release build shared for testing rather than a finished product: it is unsigned, it is <span data-latest-version>v0.5.0</span>, and some things will be wrong. Each install guide lists what is known to be missing on that platform. If something feels off, confusing, or just plain wrong, I want to hear about it.</p>
-      </div>
-
-      <div class="note">
-        <p>FLOATING is Apple Silicon only — Intel Macs are not supported, and support is not planned; the installer declines to run rather than install something that would not load. If you want to verify what you downloaded, <a href="https://github.com/floamusic/floating-site/releases/latest/download/SHA256SUMS.txt">SHA256SUMS.txt</a> is on the release alongside the files — each install guide has the one-line command for checking against it.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======================================================== SUPPORT -->
-  <section id="support">
-    <div class="wrap">
-      <p class="eyebrow"><span class="num">04</span>Support development</p>
-      <div class="text">
-        <p>FLOATING is made by one person, and the beta is free. If you want to put something behind it, it goes directly into the time this takes.</p>
-      </div>
-      <div class="link-rows">
-        <div class="link-row">
-          <span class="k">Ko-fi</span>
-          <span class="v"><a href="https://ko-fi.com/floamusic" rel="noopener">ko-fi.com/floamusic</a></span>
-        </div>
-        <div class="link-row">
-          <span class="k">Boosty</span>
-          <span class="v"><a href="https://boosty.to/floamusic/donate" rel="noopener">boosty.to/floamusic</a></span>
-        </div>
-      </div>
+      <p class="fineprint">Apple Silicon only — Intel Macs are not supported, and the installer declines to run on one. To check what you downloaded, <a href="https://github.com/floamusic/floating-site/releases/latest/download/SHA256SUMS.txt">SHA256SUMS.txt</a> is on the release; each install guide has the one-line command. What changed in each release: <a href="changelog.html">changelog</a>.</p>
     </div>
   </section>
 
   <!-- ======================================================== CONTACT -->
   <section id="contact">
-    <div class="wrap">
-      <p class="eyebrow"><span class="num">05</span>Contact</p>
-      <div class="text">
-        <p>Bug reports, confusion, and “this should work differently” are all equally welcome. The most useful report says what you did, what you expected, and what happened instead.</p>
-      </div>
-      <div class="link-rows">
-        <div class="link-row">
-          <span class="k">Instagram</span>
-          <span class="v"><a href="https://instagram.com/floamusic" rel="noopener">@floamusic</a></span>
+    <div class="wrap contact-grid">
+      <div>
+        <h2>Tell me what’s wrong.</h2>
+        <p>Bug reports, confusion, and “this should work differently” are all welcome. The most useful report says what you did, what you expected, and what happened instead.</p>
+        <div class="link-rows">
+          <div class="link-row"><span class="k">Instagram</span><span class="v"><a href="https://instagram.com/floamusic" rel="noopener">@floamusic</a></span></div>
+          <div class="link-row"><span class="k">Telegram</span><span class="v"><a href="https://t.me/floamusic" rel="noopener">@floamusic</a></span></div>
         </div>
-        <div class="link-row">
-          <span class="k">Telegram</span>
-          <span class="v"><a href="https://t.me/floamusic" rel="noopener">@floamusic</a></span>
+      </div>
+      <div id="support">
+        <h2>Support it.</h2>
+        <p>FLOATING is made by one person, and the beta is free. Anything you put behind it goes straight into the time this takes.</p>
+        <div class="link-rows">
+          <div class="link-row"><span class="k">Ko-fi</span><span class="v"><a href="https://ko-fi.com/floamusic" rel="noopener">ko-fi.com/floamusic</a></span></div>
+          <div class="link-row"><span class="k">Boosty</span><span class="v"><a href="https://boosty.to/floamusic/donate" rel="noopener">boosty.to/floamusic</a></span></div>
         </div>
       </div>
     </div>
@@ -240,15 +223,16 @@
 </main>
 
 <script>
-/* Hero view switch. Progressive enhancement: with JS off, the still panel is
-   visible and the video panel stays hidden — the page is exactly what it was
-   before the video existed. */
+/* The look switch: Cassette / Classic / video. Progressive enhancement — with
+   JS off the cassette panel shows and the others stay hidden. Leaving the
+   video pauses it: a hidden player that keeps talking is why it never
+   autoplays. */
 (function () {
-  var tabs   = [document.getElementById('tab-still'), document.getElementById('tab-video')];
-  var panels = [document.getElementById('panel-still'), document.getElementById('panel-video')];
-  var video  = document.getElementById('promo');
-  var badge  = document.getElementById('play-badge');
-  if (!tabs[0] || !tabs[1] || !video) return;
+  var tabs = ['cassette', 'classic', 'video'].map(function (n) { return document.getElementById('tab-' + n); });
+  var panels = ['cassette', 'classic', 'video'].map(function (n) { return document.getElementById('panel-' + n); });
+  var video = document.getElementById('promo');
+  var badge = document.getElementById('play-badge');
+  if (tabs.some(function (t) { return !t; })) return;
 
   function select(i, focus) {
     tabs.forEach(function (t, n) {
@@ -258,29 +242,26 @@
       t.tabIndex = on ? 0 : -1;
       panels[n].hidden = !on;
     });
-    // Leaving the video must stop the audio — a paused-but-hidden player that
-    // keeps talking is the whole reason this thing doesn't autoplay.
-    if (i !== 1 && !video.paused) video.pause();
+    if (i !== 2 && video && !video.paused) video.pause();
     if (focus) tabs[i].focus();
   }
 
   tabs.forEach(function (t, i) {
     t.addEventListener('click', function () { select(i); });
     t.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); select((i + 1) % 2, true); }
-      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); select((i + 1) % 2, true); }
+      var n = tabs.length;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); select((i + 1) % n, true); }
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); select((i + n - 1) % n, true); }
       else if (e.key === 'Home') { e.preventDefault(); select(0, true); }
-      else if (e.key === 'End')  { e.preventDefault(); select(1, true); }
+      else if (e.key === 'End') { e.preventDefault(); select(n - 1, true); }
     });
   });
 
-  if (badge) {
+  if (badge && video) {
     badge.addEventListener('click', function () { video.play(); });
+    video.addEventListener('play', function () { badge.hidden = true; });
+    video.addEventListener('ended', function () { badge.hidden = false; });
   }
-  // The badge is only an affordance over the poster; once the native controls
-  // are the real interface, it gets out of the way.
-  video.addEventListener('play',  function () { if (badge) badge.hidden = true; });
-  video.addEventListener('ended', function () { if (badge) badge.hidden = false; });
 })();
 </script>
 
