@@ -9,6 +9,29 @@
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<script>
+/* Images and the film come from jsDelivr's copy of this site, pinned to one commit: it answers where GitHub
+   Pages stalls, and the files can be cached for good. If jsDelivr fails, the same file comes from here. */
+(function () {
+  var CDN = 'https://cdn.jsdelivr.net/gh/floamusic/floating-site@5171745fc6cb4672ef6ddef4de0415eacdd4ea3f/';
+  function local(v) { return v && v.split(CDN).join(''); }
+  window.siteLocal = local;
+  document.addEventListener('error', function (e) {
+    var t = e.target, box = t && t.parentNode;
+    if (!t || !/^(IMG|SOURCE)$/.test(t.tagName) || !box) return;
+    var els = box.tagName === 'PICTURE' || box.tagName === 'VIDEO' ? box.querySelectorAll('source, img') : [t];
+    Array.prototype.forEach.call(els, function (el) {
+      if (el.srcset && el.srcset.indexOf(CDN) >= 0) el.srcset = local(el.srcset);
+      if (el.getAttribute('src') && el.getAttribute('src').indexOf(CDN) >= 0) el.src = local(el.getAttribute('src'));
+    });
+    if (box.tagName === 'VIDEO') {
+      var resume = !box.paused;          // play() was pressed: keep playing from the site's copy
+      box.load();
+      if (resume) box.play().catch(function () {});
+    }
+  }, true);
+})();
+</script>
 <link rel="stylesheet" href="assets/css/site.css?v=5">
 <link rel="preload" href="assets/fonts/ShareTechMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <meta property="og:type" content="website">
@@ -46,13 +69,13 @@
   <section class="hero hero-cassette">
     <picture class="hero-art">
       <source media="(max-width: 760px)" type="image/avif" sizes="100vw" width="1080" height="1350"
-              srcset="assets/img/cassette-hero-tall-1080.avif 1080w, assets/img/cassette-hero-tall-1620.avif 1620w">
+              srcset="https://cdn.jsdelivr.net/gh/floamusic/floating-site@5171745fc6cb4672ef6ddef4de0415eacdd4ea3f/assets/img/cassette-hero-tall-1080.avif 1080w, https://cdn.jsdelivr.net/gh/floamusic/floating-site@5171745fc6cb4672ef6ddef4de0415eacdd4ea3f/assets/img/cassette-hero-tall-1620.avif 1620w">
       <source media="(max-width: 760px)" sizes="100vw" width="1080" height="1350"
-              srcset="assets/img/cassette-hero-tall-1080.jpg 1080w, assets/img/cassette-hero-tall-1620.jpg 1620w">
+              srcset="https://cdn.jsdelivr.net/gh/floamusic/floating-site@5171745fc6cb4672ef6ddef4de0415eacdd4ea3f/assets/img/cassette-hero-tall-1080.jpg 1080w, https://cdn.jsdelivr.net/gh/floamusic/floating-site@5171745fc6cb4672ef6ddef4de0415eacdd4ea3f/assets/img/cassette-hero-tall-1620.jpg 1620w">
       <source type="image/avif" sizes="100vw"
-              srcset="assets/img/cassette-hero-wide-1600.avif 1600w, assets/img/cassette-hero-wide-2560.avif 2560w, assets/img/cassette-hero-wide-3840.avif 3840w">
-      <img src="assets/img/cassette-hero-wide-1600.jpg"
-           srcset="assets/img/cassette-hero-wide-1600.jpg 1600w, assets/img/cassette-hero-wide-2560.jpg 2560w, assets/img/cassette-hero-wide-3840.jpg 3840w"
+              srcset="https://cdn.jsdelivr.net/gh/floamusic/floating-site@5171745fc6cb4672ef6ddef4de0415eacdd4ea3f/assets/img/cassette-hero-wide-1600.avif 1600w, https://cdn.jsdelivr.net/gh/floamusic/floating-site@5171745fc6cb4672ef6ddef4de0415eacdd4ea3f/assets/img/cassette-hero-wide-2560.avif 2560w, https://cdn.jsdelivr.net/gh/floamusic/floating-site@5171745fc6cb4672ef6ddef4de0415eacdd4ea3f/assets/img/cassette-hero-wide-3840.avif 3840w">
+      <img src="https://cdn.jsdelivr.net/gh/floamusic/floating-site@5171745fc6cb4672ef6ddef4de0415eacdd4ea3f/assets/img/cassette-hero-wide-1600.jpg"
+           srcset="https://cdn.jsdelivr.net/gh/floamusic/floating-site@5171745fc6cb4672ef6ddef4de0415eacdd4ea3f/assets/img/cassette-hero-wide-1600.jpg 1600w, https://cdn.jsdelivr.net/gh/floamusic/floating-site@5171745fc6cb4672ef6ddef4de0415eacdd4ea3f/assets/img/cassette-hero-wide-2560.jpg 2560w, https://cdn.jsdelivr.net/gh/floamusic/floating-site@5171745fc6cb4672ef6ddef4de0415eacdd4ea3f/assets/img/cassette-hero-wide-3840.jpg 3840w"
            sizes="100vw" width="1600" height="1000" fetchpriority="high"
            alt="FLOATING as a cassette: a dark shell floating over a black floor, its paper label reading FLOATING, the two hubs and the Memory in the window, and the five knobs below — Memory Mode on Choir, Shape on GLOW.">
     </picture>
@@ -89,9 +112,9 @@
         <figure>
           <picture>
             <source type="image/avif" sizes="(max-width: 1120px) 100vw, 1120px"
-                    srcset="assets/img/look-cassette.avif 1920w, assets/img/look-cassette@2x.avif 2880w">
-          <img class="shot" id="cassette-shot" src="assets/img/look-cassette.jpg"
-               srcset="assets/img/look-cassette.jpg 1920w, assets/img/look-cassette@2x.jpg 2880w"
+                    srcset="https://cdn.jsdelivr.net/gh/floamusic/floating-site@5171745fc6cb4672ef6ddef4de0415eacdd4ea3f/assets/img/look-cassette.avif 1920w, https://cdn.jsdelivr.net/gh/floamusic/floating-site@5171745fc6cb4672ef6ddef4de0415eacdd4ea3f/assets/img/look-cassette@2x.avif 2880w">
+          <img class="shot" id="cassette-shot" src="https://cdn.jsdelivr.net/gh/floamusic/floating-site@5171745fc6cb4672ef6ddef4de0415eacdd4ea3f/assets/img/look-cassette.jpg"
+               srcset="https://cdn.jsdelivr.net/gh/floamusic/floating-site@5171745fc6cb4672ef6ddef4de0415eacdd4ea3f/assets/img/look-cassette.jpg 1920w, https://cdn.jsdelivr.net/gh/floamusic/floating-site@5171745fc6cb4672ef6ddef4de0415eacdd4ea3f/assets/img/look-cassette@2x.jpg 2880w"
                sizes="(max-width: 1120px) 100vw, 1120px" width="1920" height="1200" loading="lazy" decoding="async"
                alt="The cassette look: a paper label with the Memory in the window between two hubs, the title written by hand — choir, glow — Capture held, side A FREE, the five knobs on the body and Atmosphere at 55 percent in the trapezoid at the bottom.">
           </picture>
@@ -102,9 +125,9 @@
         <figure>
           <picture>
             <source type="image/avif" sizes="(max-width: 1120px) 100vw, 1120px"
-                    srcset="assets/img/look-classic.avif 1920w, assets/img/look-classic@2x.avif 2880w">
-          <img class="shot" id="classic-shot" src="assets/img/look-classic.jpg"
-               srcset="assets/img/look-classic.jpg 1920w, assets/img/look-classic@2x.jpg 2880w"
+                    srcset="https://cdn.jsdelivr.net/gh/floamusic/floating-site@5171745fc6cb4672ef6ddef4de0415eacdd4ea3f/assets/img/look-classic.avif 1920w, https://cdn.jsdelivr.net/gh/floamusic/floating-site@5171745fc6cb4672ef6ddef4de0415eacdd4ea3f/assets/img/look-classic@2x.avif 2880w">
+          <img class="shot" id="classic-shot" src="https://cdn.jsdelivr.net/gh/floamusic/floating-site@5171745fc6cb4672ef6ddef4de0415eacdd4ea3f/assets/img/look-classic.jpg"
+               srcset="https://cdn.jsdelivr.net/gh/floamusic/floating-site@5171745fc6cb4672ef6ddef4de0415eacdd4ea3f/assets/img/look-classic.jpg 1920w, https://cdn.jsdelivr.net/gh/floamusic/floating-site@5171745fc6cb4672ef6ddef4de0415eacdd4ea3f/assets/img/look-classic@2x.jpg 2880w"
                sizes="(max-width: 1120px) 100vw, 1120px" width="1920" height="1200" loading="lazy" decoding="async"
                alt="The classic look in the same state: the Memory across the full-width Horizon with its Focus, Capture held, FREE, Memory Mode on Choir, Shape at GLOW and Atmosphere at 55 percent.">
           </picture>
@@ -115,10 +138,10 @@
         <figure>
           <div class="video-wrap">
             <video class="shot" id="promo" controls playsinline preload="none"
-                   width="1920" height="1080" data-poster="assets/img/hero-memory.jpg">
-              <source src="assets/video/floating-promo-v3-captions.mp4" type="video/mp4">
+                   width="1920" height="1080" data-poster="https://cdn.jsdelivr.net/gh/floamusic/floating-site@5171745fc6cb4672ef6ddef4de0415eacdd4ea3f/assets/img/hero-memory.jpg">
+              <source src="https://cdn.jsdelivr.net/gh/floamusic/floating-site@5171745fc6cb4672ef6ddef4de0415eacdd4ea3f/assets/video/floating-promo-v3-captions.mp4" type="video/mp4">
               <p>Your browser can’t play this video.
-                 <a href="assets/video/floating-promo-v3-captions.mp4">Download it instead</a>.</p>
+                 <a href="https://cdn.jsdelivr.net/gh/floamusic/floating-site@5171745fc6cb4672ef6ddef4de0415eacdd4ea3f/assets/video/floating-promo-v3-captions.mp4">Download it instead</a>.</p>
             </video>
             <button type="button" class="play-badge" id="play-badge"
                     aria-label="Play the FLOATING demo video, 43 seconds, with sound">
