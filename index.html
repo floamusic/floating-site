@@ -32,7 +32,7 @@
   }, true);
 })();
 </script>
-<link rel="stylesheet" href="assets/css/site.css?v=5">
+<link rel="stylesheet" href="assets/css/site.css?v=6">
 <link rel="preload" href="assets/fonts/ShareTechMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <meta property="og:type" content="website">
 <meta property="og:title" content="FLOATING by Fløa">
@@ -275,13 +275,17 @@
 
   // With JS the panels sit stacked in one grid cell, all rendered, so a switch is a 0.2 s cross-fade instead
   // of a fetch (the classic image used to load on click). What the first screen doesn't show waits for the page
-  // to finish loading: then the classic look and the film's poster are fetched, before anyone switches.
+  // to finish loading: then the classic look is fetched, before anyone switches. The film's poster (336 KB) waits
+  // until someone reaches for the film's tab (pointing at it, focusing it or choosing it), so a visit that never
+  // opens the film doesn't pay for it.
   var holder = panels[0].parentNode;
   holder.classList.add('is-stacked');
   panels.forEach(function (p, n) { p.hidden = false; p.classList.toggle('is-off', n !== 0); p.inert = n !== 0; });
   var looks = ['cassette-shot', 'classic-shot'].map(function (id) { return document.getElementById(id); });
   function fetchRest() {
     looks.forEach(function (img) { if (img) img.loading = 'eager'; });   // the cassette first
+  }
+  function fetchPoster() {
     if (video && !video.poster && video.dataset.poster) {
       // a poster that fails raises no error on the video: try it as an image first (siteLocal: the CDN fallback)
       var url = video.dataset.poster, probe = new Image();
@@ -303,9 +307,14 @@
       panels[n].inert = !on;
     });
     if (i !== 0) fetchRest();
+    if (i === 2) fetchPoster();
     if (i !== 2 && video && !video.paused) video.pause();
     if (focus) tabs[i].focus();
   }
+
+  ['pointerenter', 'focus', 'touchstart'].forEach(function (type) {
+    tabs[2].addEventListener(type, fetchPoster, { passive: true });
+  });
 
   tabs.forEach(function (t, i) {
     t.addEventListener('click', function () { select(i); });
@@ -330,22 +339,44 @@
   <div class="wrap">
     <span class="mono">FLOATING · by Fløa · <span data-latest-version>v0.5.0</span></span>
     <span class="mono"><a href="changelog.html">Changelog</a> · <a href="install-macos.html">macOS install</a> · <a href="install-windows.html">Windows install</a></span>
+    <span class="mono">Also by Fløa: <a href="/konsoll-site/">KONSOLL</a> · <a href="/music/">Music</a></span>
   </div>
 </footer>
 
 <!-- The version above is correct as published. This only keeps it current if a
      newer release goes up before the page is next edited; if the request fails,
-     is rate-limited, or JS is off, the published value stands. -->
+     is rate-limited, or JS is off, the published value stands. The answer is kept
+     for an hour under the same key the Fløa showcase uses (one origin), so moving
+     between the pages spends one of GitHub's 60 hourly requests per visitor, not
+     one per page. updates.html always asks afresh. -->
 <script>
+(function () {
+  var KEY = 'floa.floatingTag', HOUR = 3600000, TAG = /^v\d+\.\d+\.\d+/;
+  var els = document.querySelectorAll('[data-latest-version]');
+  function parts(t) { return t.match(/\d+/g).slice(0, 3).map(Number); }
+  // Never older than the published value: a tag kept from before this page was refreshed must
+  // not wind the number back.
+  function show(tag) {
+    if (!els.length) return;
+    var a = parts(tag), b = parts(els[0].textContent);
+    for (var i = 0; i < 3; i++) { if (a[i] !== b[i]) { if (a[i] < b[i]) return; break; } }
+    els.forEach(function (el) { el.textContent = tag; });
+  }
+  try {
+    var kept = JSON.parse(localStorage.getItem(KEY) || 'null');
+    if (kept && TAG.test(kept.tag) && Date.now() - kept.at < HOUR) { show(kept.tag); return; }
+  } catch (e) {}
+  if (!window.fetch) return;
   fetch('https://api.github.com/repos/floamusic/floating-site/releases/latest',
         { headers: { Accept: 'application/vnd.github+json' } })
     .then(function (r) { return r.ok ? r.json() : null; })
     .then(function (d) {
-      if (!d || !d.tag_name) return;
-      document.querySelectorAll('[data-latest-version]')
-              .forEach(function (el) { el.textContent = d.tag_name; });
+      if (!d || !TAG.test(d.tag_name || '')) return;
+      show(d.tag_name);
+      try { localStorage.setItem(KEY, JSON.stringify({ tag: d.tag_name, at: Date.now() })); } catch (e) {}
     })
     .catch(function () { /* published value stands */ });
+})();
 </script>
 
 </body>
