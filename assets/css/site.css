@@ -51,6 +51,9 @@
 /* Pages on floamusic.github.io cross-fade into one another where the browser can (all of them
    opt in; elsewhere the link just loads). */
 @media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }
+/* The bar sits in the same place on every site, so it is carried across as one piece instead of
+   fading out with the page. */
+.topbar { view-transition-name: topbar; }
 
 *, *::before, *::after { box-sizing: border-box; }
 
