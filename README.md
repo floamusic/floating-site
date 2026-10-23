@@ -20,13 +20,18 @@ Live: <https://floamusic.github.io/floating-site/>
 | `assets/video/` | Hero demo video, transcoded for web (see below) |
 
 Static HTML and CSS only — no build step and no framework. The font is
-self-hosted, and nothing is loaded from a CDN.
+self-hosted. The home page takes its images and film from jsDelivr's copy of this
+repo, pinned to a commit, with the site itself as the fallback (see Loading below);
+nothing else comes from a CDN.
 
 Four pages do call one third-party endpoint: `api.github.com`, to read the
 latest release. Everything those calls affect is published in the HTML first
 and only overwritten on success, so a blocked, failed or rate-limited request
 leaves a correct page rather than a blank one — and the pages still work with
-JavaScript off.
+JavaScript off. The home and install pages keep the answer for an hour in
+`localStorage` (`floa.floatingTag`, shared with the Fløa showcase on the same
+origin) and never show a version older than the one in their markup;
+`updates.html` and `changelog.html` always ask afresh.
 
 ## Screenshots
 
@@ -47,7 +52,8 @@ The hero has two tabs: the interface still (default) and the demo video. The
 video **never autoplays** — it carries real audio as part of the demonstration —
 and is `preload="none"`, so it costs zero bytes until someone presses play. The
 still doubles as the video's `poster`, so switching tabs shows the same frame
-rather than a black box. The poster is set only once the page has finished loading.
+rather than a black box. The poster (336 KB) is fetched only when someone points at,
+focuses or chooses the film's tab, so a visit that never opens the film doesn't pay for it.
 
 `assets/video/floating-promo-v3-captions.mp4` is a web transcode of the delivery
 master (`video/floating-promo-v3-captions.mp4` in the product repo): same
@@ -58,9 +64,9 @@ finishes downloading. Re-transcode from the master rather than from this file.
 
 ## Downloads
 
-Binaries are **not** in this repo. They are attached to the
-[`v0.1.0-beta.1` release](https://github.com/floamusic/floating-site/releases/tag/v0.1.0-beta.1),
-and the download buttons link straight at those assets. `SHA256SUMS.txt` on the
+Binaries are **not** in this repo. They are attached to each
+[GitHub release](https://github.com/floamusic/floating-site/releases), and the download
+buttons link through `/releases/latest/download/` to the newest one's assets. `SHA256SUMS.txt` on the
 release lets anyone verify what they downloaded.
 
 ## The update check

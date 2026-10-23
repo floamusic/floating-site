@@ -9,7 +9,7 @@
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-<link rel="stylesheet" href="assets/css/site.css?v=5">
+<link rel="stylesheet" href="assets/css/site.css?v=6">
 </head>
 <body>
 
@@ -106,17 +106,38 @@
 
 <!-- The version above is correct as published. This only keeps it current if a
      newer release goes up before the page is next edited; if the request fails,
-     is rate-limited, or JS is off, the published value stands. -->
+     is rate-limited, or JS is off, the published value stands. The answer is kept
+     for an hour under the same key the Fløa showcase uses (one origin), so moving
+     between the pages spends one of GitHub's 60 hourly requests per visitor, not
+     one per page. updates.html always asks afresh. -->
 <script>
+(function () {
+  var KEY = 'floa.floatingTag', HOUR = 3600000, TAG = /^v\d+\.\d+\.\d+/;
+  var els = document.querySelectorAll('[data-latest-version]');
+  function parts(t) { return t.match(/\d+/g).slice(0, 3).map(Number); }
+  // Never older than the published value: a tag kept from before this page was refreshed must
+  // not wind the number back.
+  function show(tag) {
+    if (!els.length) return;
+    var a = parts(tag), b = parts(els[0].textContent);
+    for (var i = 0; i < 3; i++) { if (a[i] !== b[i]) { if (a[i] < b[i]) return; break; } }
+    els.forEach(function (el) { el.textContent = tag; });
+  }
+  try {
+    var kept = JSON.parse(localStorage.getItem(KEY) || 'null');
+    if (kept && TAG.test(kept.tag) && Date.now() - kept.at < HOUR) { show(kept.tag); return; }
+  } catch (e) {}
+  if (!window.fetch) return;
   fetch('https://api.github.com/repos/floamusic/floating-site/releases/latest',
         { headers: { Accept: 'application/vnd.github+json' } })
     .then(function (r) { return r.ok ? r.json() : null; })
     .then(function (d) {
-      if (!d || !d.tag_name) return;
-      document.querySelectorAll('[data-latest-version]')
-              .forEach(function (el) { el.textContent = d.tag_name; });
+      if (!d || !TAG.test(d.tag_name || '')) return;
+      show(d.tag_name);
+      try { localStorage.setItem(KEY, JSON.stringify({ tag: d.tag_name, at: Date.now() })); } catch (e) {}
     })
     .catch(function () { /* published value stands */ });
+})();
 </script>
 
 </body>
