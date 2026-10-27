@@ -46,7 +46,7 @@
       <p class="eyebrow">Changelog</p>
       <h1>What changed</h1>
       <p class="lede text">Every FLOATING release, newest first.</p>
-      <p class="small muted text">These are the release notes themselves, read from GitHub when the page loads — so this list cannot fall behind the downloads. If the request fails or JavaScript is off, the releases published up to <span data-latest-version>v0.5.0</span> are below.</p>
+      <p class="small muted text">These are the release notes themselves, read from GitHub when the page loads — so this list cannot fall behind the downloads. If the request fails or JavaScript is off, the releases published up to <span data-latest-version>v0.6.0</span> are below.</p>
     </div>
 
     <!-- STATIC FALLBACK. This is what a reader sees with no JavaScript, or when
@@ -54,6 +54,31 @@
          rather than a spinner. The script replaces it wholesale on success;
          when a release goes out, this block is what needs updating by hand. -->
     <div id="releases">
+
+      <article class="rel">
+        <header class="rel-head">
+          <h2>v0.6.0</h2>
+          <span class="rel-date">27 October 2026</span>
+        </header>
+        <div class="rel-body">
+          <ul>
+            <li><strong>Look back.</strong> FLOATING now keeps the last minute of what it heard. With a Memory held in FREE, ◀◀ and ▶▶ in the Horizon's header step back and forth through it, phrase by phrase — each step lands on a phrase's start. Page Up / Page Down do the same. ▶▶ never goes past your Capture, and ⌘-click still brings back the Memory before a step.</li>
+            <li><strong>Look back in SYNC too.</strong> In SYNC, ◀◀ and ▶▶ step a whole Memory at a time — the bars you would have captured there — and each one comes back on the grid, in the bar where you heard it, even across a stop or a loop. ◆ keeps a synced piece synced.</li>
+            <li><strong>PUT ON GRID.</strong> Captured in FREE and switched to SYNC? If the last minute heard that moment on the grid, the status line reads PUT ON GRID: press it and the same moment goes on the grid, starting where your FREE Memory started, with the Focus you drew. Otherwise it reads CAPTURE TO SYNC, as before.</li>
+            <li><strong>Switching the device off and on keeps the minute.</strong> Turning FLOATING off and on in Live (or the track) used to empty its history; now ◀◀ and PUT ON GRID still reach what came before. Steps never join the two sides of the gap, and a Capture right after it starts from what you play next.</li>
+            <li><strong>◆ keeps a piece.</strong> Found one you like but want to keep looking? Press ◆. Search on, then press ◆ to switch back — with the Focus you chose on it. The piece you left becomes the other side, so ◆ swaps between the two. Nothing is ever overwritten; only a new Capture clears it. While a piece waits, ◆ glows softly. ◆ is there whenever a Memory is held — even a short one with nothing before it; the arrows dim when there is nowhere to step.</li>
+            <li><strong>◆ inside one Memory.</strong> Keep an area of the Memory with ◆, draw another one, and ◆ switches between the two — no stepping needed, so it works on a short Memory too.</li>
+            <li><strong>Hear the track: PRESENT.</strong> Hold the word PRESENT under Mix to hear only your track, as if FLOATING were off; let go and the Memory is back where it would have been. A short click keeps it on. From the keyboard, PRESENT comes right after Mix in the Tab order; Space or Return turns it on and off.</li>
+            <li>A new FLOATING starts with Mix at 100 %: once you Capture, you hear the Memory alone. Before a Capture the track still plays through untouched. Projects you already saved keep their own Mix.</li>
+            <li>In Ableton Live, dropping the VST3 onto an empty area now makes an audio track. Live used to make a MIDI track, as if FLOATING were an instrument. The VST3 now declares a 30 s tail, the same as the AU. Saved projects, Memory and automation are unchanged.</li>
+            <li>The Cassette look has them too. ◀◀ and ▶▶ are printed under the reels and wind them as you step; a new BACK field on the label says how far back you are; ◆ is a note in pen on the third TITLE line; PRESENT is under Mix, as in the Classic look. Page Up / Page Down step in both looks; Return is ◆ in the Classic look (on the cassette, Enter still pulls the tape out). While nothing is kept, that line reads «◆ keep» in pencil, so you know where to press. With the tape pulled out, ◆ comes along into the top of the open window.</li>
+            <li>Before a Capture, the Memory window now shows brightly exactly what a Capture would take (the TARGET), and older sound dimmer. It used to fade with age, which made part of what you would capture look left out.</li>
+            <li>In SYNC, a print is now always a whole number of bars: one bar, 2, 4 or 8 — never ¾ or 3/8 of a bar. Ableton Live reads the tempo only from such lengths, so a short print now warps to your project's tempo and stays on the grid when you change it. A print of a short loop is one bar long (up to 4 s at 60 BPM). FREE prints are unchanged.</li>
+            <li>Switching back from FREE to SYNC now puts a Focus you drew in FREE on the grid, as drawing it in SYNC does. It used to stay at an odd length (such as 0.151 BAR) and read OFF GRID until you touched the Focus again.</li>
+            <li>The minute of history costs about 20 MB of memory per FLOATING at 48 kHz. It is not saved with the project: after reopening, look back starts from what you play next. Changing the sample rate empties it too.</li>
+          </ul>
+        </div>
+      </article>
 
       <article class="rel">
         <header class="rel-head">
@@ -185,7 +210,7 @@
 
 <footer>
   <div class="wrap">
-    <span class="mono">FLOATING · by Fløa · <span data-latest-version>v0.5.0</span></span>
+    <span class="mono">FLOATING · by Fløa · <span data-latest-version>v0.6.0</span></span>
     <span class="mono"><a href="index.html">Home</a> · <a href="updates.html">Updates</a></span>
   </div>
 </footer>
