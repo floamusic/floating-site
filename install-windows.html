@@ -67,17 +67,18 @@
     <p>Unlike some other platforms, Windows doesn’t require VST3 plugins to be signed, and SmartScreen only gates programs you <em>launch</em> directly — a plugin loaded by your DAW isn’t launched the same way, so there’s no “unblock” step to hunt for here. The only prompt you may see is the standard UAC permission request from writing into Program Files, which is about the folder, not about FLOATING itself.</p>
 
     <h2>Confirm it’s installed</h2>
-    <p>Open your DAW, force a plugin rescan if it doesn’t appear automatically, and look for FLOATING under VST3 instruments/effects (check your DAW’s own scan log if it doesn’t show up).</p>
+    <p>Open your DAW, force a plugin rescan if it doesn’t appear automatically, and look for FLOATING among the VST3 audio effects, under Floaudio (check your DAW’s own scan log if it doesn’t show up).</p>
 
     <h2>New in this build</h2>
     <ul>
-      <li><strong>FREE | SYNC.</strong> The BPM Sync toggle is now a mode switch in the same place. FREE plays as before, with tempo playing no part. SYNC lands the next Capture on the bar and keeps it there whatever you move — Rate, Window, the Horizon, Shape and Stretch all hold the grid. The panel turns blue in SYNC.</li>
-      <li><strong>The knobs read what you hear.</strong> In SYNC they show <code>4/3X</code> or <code>1 BAR</code> instead of percentages, and the line under the switch says <code>ON GRID</code>, <code>SYNCED</code> or <code>CAPTURE TO SYNC</code>.</li>
-      <li><strong>Choir’s Shape changes the timbre.</strong> BODY leads with the octave below, GLOW with the octave above; the level holds.</li>
-      <li><strong>Fixed:</strong> a synced Memory held for a long time no longer drifts off the bar, and the Horizon’s LISTENING and REMEMBERING labels no longer overlap.</li>
-      <li><strong>Stretch’s top position reads DRIVE</strong>, its fastest forward progression, instead of CLEAN.</li>
+      <li><strong>Look back.</strong> FLOATING now keeps the last minute of what it heard. With a Memory held, ◀◀ and ▶▶ in the Horizon’s header step through it — phrase by phrase in FREE, a whole Memory on the grid in SYNC. Page Up / Page Down do the same.</li>
+      <li><strong>PUT ON GRID.</strong> Captured in FREE, then switched to SYNC? If the last minute heard that moment on the grid, press PUT ON GRID and it goes on the grid, with the Focus you drew.</li>
+      <li><strong>◆ keeps a piece.</strong> Press ◆ to keep what you hear, search on, and press ◆ to switch back. It also switches between two Focus areas of one Memory.</li>
+      <li><strong>PRESENT.</strong> Hold the word PRESENT under Mix to hear only your track; a short click keeps it on.</li>
+      <li><strong>Both looks.</strong> On the cassette, ◀◀ and ▶▶ sit under the reels, BACK on the label tells how far back you are, and ◆ is the third TITLE line.</li>
+      <li>A new FLOATING starts with Mix at 100 %. In Ableton Live, dropping the VST3 onto an empty area now makes an audio track. In SYNC, a print is always a whole number of bars.</li>
     </ul>
-    <p>Earlier Windows work still applies: <strong>Ctrl-click Capture</strong> steps back to the previous Memory, and keyboard navigation works — Tab moves through the panel and the arrow keys change values. Both confirmed by hand in Ableton.</p>
+    <p>Earlier Windows work still applies: the Cassette look (••• menu), FREE | SYNC, <strong>Ctrl-click Capture</strong> brings back the Memory your last Capture replaced, and keyboard navigation works — Tab moves through the panel and the arrow keys change values. This build was checked by hand in Ableton on Windows, in both looks.</p>
 
     <h2>Verify what you downloaded (optional)</h2>
     <p>Every release carries a <a href="https://github.com/floamusic/floating-site/releases/latest/download/SHA256SUMS.txt">SHA256SUMS.txt</a>. In PowerShell, from the folder you downloaded into:</p>
