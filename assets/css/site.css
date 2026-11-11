@@ -283,7 +283,7 @@ p:last-child { margin-bottom: 0; }
   box-shadow: 0 30px 90px rgba(0, 0, 0, 0.7);
 }
 
-/* ---------- hero view switch (Interface / video) ---------- */
+/* ---------- look switch (Cassette / Classic) and the film ---------- */
 
 .switch {
   display: flex;
@@ -786,7 +786,7 @@ td code { white-space: nowrap; }
 .panels.is-stacked > .panel.is-off { opacity: 0; visibility: hidden; transition: opacity 0.2s ease, visibility 0s linear 0.2s; }
 
 /* ---------- what it does ---------- */
-#what h2, #get h2, #contact h2 { font-size: clamp(24px, 3.2vw, 34px); line-height: 1.15; }
+#what h2, #watch h2, #get h2, #contact h2 { font-size: clamp(24px, 3.2vw, 34px); line-height: 1.15; }
 ol.flow { padding: 0; }
 .modes {
   margin: clamp(30px, 4vw, 44px) 0 18px;
@@ -829,3 +829,6 @@ ol.flow { padding: 0; }
 
 /* ---------- browser surfaces ---------- */
 ::selection { background: rgba(255, 90, 44, 0.32); color: #fff; }
+
+/* the film's own section: the heading sits as close to the frame as the look switch does to its shot */
+#watch h2 { margin-bottom: clamp(20px, 2.6vw, 28px); }
